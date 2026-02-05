@@ -40,17 +40,15 @@ const navigate = (path: string) => {
 
 <template>
   <!-- Desktop: Top bar under header -->
-  <nav class="hidden md:block bg-white border-b border-gray-200">
+  <nav class="hidden md:block bg-base-100 border-b border-base-300">
     <div class="max-w-5xl mx-auto px-4">
-      <div class="flex gap-8">
+      <div class="tabs tabs-bordered">
         <button
           v-for="tab in tabs"
           :key="tab.path"
           :class="[
-            'flex items-center gap-2 py-3 px-1 border-b-2 text-sm font-medium transition-colors',
-            isActive(tab.path)
-              ? 'border-indigo-600 text-indigo-600'
-              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+            'tab tab-lg gap-2',
+            isActive(tab.path) ? 'tab-active' : '',
           ]"
           @click="navigate(tab.path)"
         >
@@ -62,20 +60,15 @@ const navigate = (path: string) => {
   </nav>
 
   <!-- Mobile: Fixed bottom bar -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
-    <div class="flex justify-around">
-      <button
-        v-for="tab in tabs"
-        :key="tab.path"
-        :class="[
-          'flex flex-col items-center py-2 px-4 text-xs font-medium transition-colors flex-1',
-          isActive(tab.path) ? 'text-indigo-600' : 'text-gray-500',
-        ]"
-        @click="navigate(tab.path)"
-      >
-        <span class="text-xl mb-0.5">{{ tab.icon }}</span>
-        <span>{{ tab.label }}</span>
-      </button>
-    </div>
+  <nav class="btm-nav md:hidden z-50">
+    <button
+      v-for="tab in tabs"
+      :key="tab.path"
+      :class="[isActive(tab.path) ? 'active' : '']"
+      @click="navigate(tab.path)"
+    >
+      <span class="text-xl">{{ tab.icon }}</span>
+      <span class="btm-nav-label">{{ tab.label }}</span>
+    </button>
   </nav>
 </template>
