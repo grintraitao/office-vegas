@@ -32,8 +32,8 @@ const handleCloseModal = () => {
   <div class="space-y-6">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Quản lý Phần thưởng</h1>
-        <p class="text-gray-500">Thêm, sửa và quản lý các phần thưởng cho team</p>
+        <h1 class="text-2xl font-bold text-white">Quản lý Phần thưởng</h1>
+        <p class="text-purple-200/70">Thêm, sửa và quản lý các phần thưởng cho team</p>
       </div>
       <Button variant="primary" @click="handleAddNew">
         + Thêm phần thưởng
@@ -45,7 +45,7 @@ const handleCloseModal = () => {
 
     <!-- All Rewards -->
     <div>
-      <h3 class="font-semibold text-gray-900 mb-3">Danh sách phần thưởng ({{ allRewards.length }})</h3>
+      <h3 class="font-semibold text-white mb-3">Danh sách phần thưởng ({{ allRewards.length }})</h3>
       <div class="space-y-3">
         <RewardManageCard
           v-for="reward in allRewards"
