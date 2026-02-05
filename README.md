@@ -34,13 +34,13 @@ npm run lint     # Lint code
 
 ## Demo Accounts
 
-| Name  | Role     | Coins | Streak |
-|-------|----------|-------|--------|
-| Hiếu  | Employee | 150   | 3      |
-| Linh  | Employee | 280   | 5      |
-| Nam   | Employee | 95    | 1      |
-| Trang | Employee | 120   | 2      |
-| Minh  | Manager  | 0     | 0      |
+| Name  | Nickname    | Role     | Coins |
+|-------|-------------|----------|-------|
+| Quốc  | Tiểu Nhân   | Employee | 150   |
+| Linh  | Linh        | Employee | 280   |
+| Nam   | Nam         | Employee | 95    |
+| Trang | Trang       | Employee | 120   |
+| Hiếu  | Hiếu thứ 3  | Manager  | 0     |
 
 ## Project Structure
 

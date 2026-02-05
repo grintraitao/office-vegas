@@ -1,32 +1,25 @@
 <script setup lang="ts">
-import { Card } from '@/components/ui'
+import { StatsBar, SubmitTaskForm, MyTasksList } from '@/components/employee'
+import { TeamProgress } from '@/components/shared'
 </script>
 
 <template>
   <div class="space-y-6">
     <div>
-      <h1 class="text-2xl font-bold text-gray-900">Employee Dashboard</h1>
-      <p class="text-gray-600 mt-1">Submit your daily outcomes and win coins!</p>
+      <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+      <p class="text-gray-600 mt-1">Submit your daily outcomes and earn coins!</p>
     </div>
 
+    <!-- Stats Bar -->
+    <StatsBar />
+
+    <!-- Team Progress (Compact) -->
+    <TeamProgress compact />
+
+    <!-- Main Content -->
     <div class="grid gap-6 md:grid-cols-2">
-      <Card title="My Tasks" padding="md">
-        <div class="text-gray-500 text-sm">
-          Task submission section coming soon...
-        </div>
-      </Card>
-
-      <Card title="Lottery" padding="md">
-        <div class="text-gray-500 text-sm">
-          Lottery game section coming soon...
-        </div>
-      </Card>
+      <SubmitTaskForm />
+      <MyTasksList />
     </div>
-
-    <Card title="Leaderboard" padding="md">
-      <div class="text-gray-500 text-sm">
-        Team leaderboard coming soon...
-      </div>
-    </Card>
   </div>
 </template>

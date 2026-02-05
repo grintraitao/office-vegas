@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import type { LotteryBet, Transaction } from '@/types'
 import { useUserStore } from './user'
 import { useGameStore } from './game'
@@ -13,43 +13,60 @@ export const useLotteryStore = defineStore('lottery', () => {
 
   // State
   const isPlaying = ref(false)
-  const lastResult = ref<{ number: number; won: boolean; payout: number } | null>(null)
+  const lastResult = ref<{
+    number: number
+    won: boolean
+    payout: number
+    netGain: number
+    betAmount: number
+  } | null>(null)
   const history = ref<LotteryBet[]>([])
 
-  // Getters
+  // Getters - House edge 5%
   const calculateMultiplier = (low: number, high: number): number => {
     const range = high - low
     if (range <= 0) return 0
-    return Number(((1 / (range / 1000)) * 0.9).toFixed(2))
+    return Number(((1 / (range / 1000)) * 0.95).toFixed(2))
   }
 
   // Actions
-  const placeBet = (userId: string, low: number, high: number, amount: number) => {
+  const placeBet = (userId: string, low: number, high: number, betAmount: number) => {
     const user = userStore.users.find(u => u.id === userId)
-    if (!user || user.coins < amount) {
+    if (!user || user.coins < betAmount) {
       return { success: false, message: 'Không đủ coins' }
     }
 
     isPlaying.value = true
 
-    // Generate random number 1-1000
+    // Step 1: Deduct stake FIRST
+    userStore.addCoins(userId, -betAmount)
+
+    // Step 2: Generate random number 1-1000
     const result = Math.floor(Math.random() * 1000) + 1
+
+    // Step 3: Check win/lose
     const won = result >= low && result <= high
     const multiplier = calculateMultiplier(low, high)
-    const payout = won ? Math.floor(amount * multiplier) : -amount
 
-    // Update user coins
-    userStore.addCoins(userId, payout)
+    let payout = 0
+    let netGain = -betAmount
+
+    // Step 4: If win, add payout
+    if (won) {
+      payout = Math.floor(betAmount * multiplier)
+      userStore.addCoins(userId, payout)
+      netGain = payout - betAmount
+    }
 
     // Add transaction
     const transaction: Transaction = {
       id: generateId(),
       userId,
-      amount: payout,
+      amount: netGain,
       type: won ? 'lottery_win' : 'lottery_lose',
       description: won
-        ? `Lottery win! Range ${low}-${high}, number ${result}`
-        : `Lottery lose. Range ${low}-${high}, number ${result}`,
+        ? `Lottery win! Range ${low}-${high}, number ${result}, +${netGain} coins`
+        : `Lottery lose. Range ${low}-${high}, number ${result}, -${betAmount} coins`,
       timestamp: new Date(),
     }
     gameStore.transactions.unshift(transaction)
@@ -61,7 +78,7 @@ export const useLotteryStore = defineStore('lottery', () => {
     const bet: LotteryBet = {
       lowRange: low,
       highRange: high,
-      betAmount: amount,
+      betAmount,
       multiplier,
       result,
       won,
@@ -72,7 +89,9 @@ export const useLotteryStore = defineStore('lottery', () => {
     lastResult.value = {
       number: result,
       won,
-      payout: won ? payout : amount,
+      payout,
+      netGain,
+      betAmount,
     }
 
     isPlaying.value = false
@@ -82,6 +101,8 @@ export const useLotteryStore = defineStore('lottery', () => {
       result,
       won,
       payout,
+      netGain,
+      betAmount,
       multiplier,
     }
   }

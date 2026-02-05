@@ -1,0 +1,6 @@
+export { default as ManagerStatsBar } from './ManagerStatsBar.vue'
+export { default as PendingTaskCard } from './PendingTaskCard.vue'
+export { default as PendingTasksList } from './PendingTasksList.vue'
+export { default as RecentlyApproved } from './RecentlyApproved.vue'
+export { default as GameControl } from './GameControl.vue'
+export { default as CreateGameModal } from './CreateGameModal.vue'

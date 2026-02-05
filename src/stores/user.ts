@@ -5,11 +5,11 @@ import type { User } from '@/types'
 export const useUserStore = defineStore('user', () => {
   // State
   const users = ref<User[]>([
-    { id: '1', name: 'Hiếu', role: 'employee', coins: 150, streak: 3 },
-    { id: '2', name: 'Linh', role: 'employee', coins: 280, streak: 5 },
-    { id: '3', name: 'Nam', role: 'employee', coins: 95, streak: 1 },
-    { id: '4', name: 'Trang', role: 'employee', coins: 120, streak: 2 },
-    { id: '5', name: 'Minh', role: 'manager', coins: 0, streak: 0 },
+    { id: '1', name: 'Quoc', nickname: 'Tiểu Nhân', role: 'employee', coins: 150 },
+    { id: '2', name: 'Tín', nickname: 'Thầy Tín', role: 'employee', coins: 280 },
+    { id: '3', name: 'Long', nickname: 'Vietlish Expert', role: 'employee', coins: 95 },
+    { id: '4', name: 'Tùng', nickname: 'Tung Tung Tung Sahur', role: 'employee', coins: 120 },
+    { id: '5', name: 'Hiếu', nickname: 'Hiếu thứ 3', role: 'manager', coins: 0 },
   ])
 
   const currentUser = ref<User | null>(users.value[0] ?? null)
@@ -56,13 +56,6 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const updateStreak = (userId: string) => {
-    const user = users.value.find(u => u.id === userId)
-    if (user) {
-      user.streak += 1
-    }
-  }
-
   return {
     // State
     users,
@@ -75,6 +68,5 @@ export const useUserStore = defineStore('user', () => {
     setCurrentUser,
     switchRole,
     addCoins,
-    updateStreak,
   }
 })

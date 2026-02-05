@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import AppHeader from './AppHeader.vue'
+import TabBar from './TabBar.vue'
 import type { User } from '@/types'
 
 interface Props {
@@ -15,6 +16,9 @@ const emit = defineEmits<{
 }>()
 
 const router = useRouter()
+const route = useRoute()
+
+const showTabBar = computed(() => route.path !== '/')
 
 const handleSwitchRole = (role: 'employee' | 'manager') => {
   emit('switch-role', role)
@@ -25,7 +29,14 @@ const handleSwitchRole = (role: 'employee' | 'manager') => {
 <template>
   <div class="min-h-screen bg-gray-50">
     <AppHeader :user="user" @switch-role="handleSwitchRole" />
-    <main class="pt-16 px-6 py-8">
+
+    <!-- Tab Bar (not shown on home page) -->
+    <div v-if="showTabBar" class="pt-16">
+      <TabBar />
+    </div>
+
+    <!-- Main Content -->
+    <main :class="['px-6 py-8 pb-24 md:pb-8', showTabBar ? '' : 'pt-16']">
       <div class="max-w-5xl mx-auto">
         <slot />
       </div>

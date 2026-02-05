@@ -26,7 +26,7 @@ const emit = defineEmits<{
 
         <div class="flex items-center gap-3">
           <div class="text-right">
-            <div class="text-sm font-medium text-gray-900">{{ user.name }}</div>
+            <div class="text-sm font-medium text-gray-900">{{ user.nickname }}</div>
             <div class="text-xs text-gray-500 capitalize">{{ user.role }}</div>
           </div>
 

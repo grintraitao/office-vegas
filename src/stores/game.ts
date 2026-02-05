@@ -16,16 +16,21 @@ export const useGameStore = defineStore('game', () => {
     targetCoins: 500,
     currentCoins: 0,
     reward: 'Trà sữa cả team 🧋',
-    sponsor: 'Anh Minh (PM)',
+    sponsorType: 'self',
+    sponsor: 'Hiếu thứ 3',
     startDate: new Date(),
     endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // +7 days
+    bonusTop1: 50,
+    bonusTop2: 25,
+    bonusTop3: 10,
+    status: 'active',
   })
 
   const tasks = ref<Task[]>([
     {
       id: '1',
       userId: '1',
-      userName: 'Hiếu',
+      userName: 'Tiểu Nhân',
       title: 'Setup CI/CD',
       outcome: 'Đã setup GitHub Actions cho auto deploy',
       status: 'pending',
@@ -36,7 +41,7 @@ export const useGameStore = defineStore('game', () => {
     {
       id: '2',
       userId: '2',
-      userName: 'Linh',
+      userName: 'Thầy Tín',
       title: 'Design homepage',
       outcome: 'Hoàn thành mockup Figma cho trang chủ',
       status: 'pending',
@@ -47,7 +52,7 @@ export const useGameStore = defineStore('game', () => {
     {
       id: '3',
       userId: '3',
-      userName: 'Nam',
+      userName: 'Vietlish Expert',
       title: 'Fix bug login',
       outcome: 'Sửa lỗi không đăng nhập được trên Safari',
       status: 'approved',
@@ -58,7 +63,7 @@ export const useGameStore = defineStore('game', () => {
     {
       id: '4',
       userId: '4',
-      userName: 'Trang',
+      userName: 'Tung Tung Tung Sahur',
       title: 'Viết docs API',
       outcome: 'Hoàn thành documentation cho 15 endpoints',
       status: 'approved',
@@ -103,7 +108,35 @@ export const useGameStore = defineStore('game', () => {
 
   const isGameActive = computed(() => {
     if (!currentGame.value) return false
-    return new Date(currentGame.value.endDate) > new Date()
+    return currentGame.value.status === 'active' && new Date(currentGame.value.endDate) > new Date()
+  })
+
+  const daysRemaining = computed(() => {
+    if (!currentGame.value) return 0
+    const now = new Date()
+    const end = new Date(currentGame.value.endDate)
+    const diff = end.getTime() - now.getTime()
+    return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)))
+  })
+
+  const getTasksByUser = (userId: string) => {
+    return tasks.value.filter(t => t.userId === userId)
+  }
+
+  const getApprovedTasksCount = (userId: string) => {
+    return tasks.value.filter(t => t.userId === userId && t.status === 'approved').length
+  }
+
+  const teamContributions = computed(() => {
+    const totalCoins = currentGame.value?.currentCoins || 0
+    return userStore.employees
+      .map(emp => ({
+        id: emp.id,
+        name: emp.nickname,
+        coins: emp.coins,
+        percentage: totalCoins > 0 ? Math.round((emp.coins / totalCoins) * 100) : 0,
+      }))
+      .sort((a, b) => b.coins - a.coins)
   })
 
   // Actions
@@ -154,12 +187,53 @@ export const useGameStore = defineStore('game', () => {
     task.reviewedAt = new Date()
   }
 
-  const createGame = (gameData: Omit<Game, 'id' | 'currentCoins'>) => {
+  const createGame = (gameData: Omit<Game, 'id' | 'currentCoins' | 'status'>) => {
     currentGame.value = {
       ...gameData,
       id: generateId(),
       currentCoins: 0,
+      status: 'active',
     }
+    updateGameCoins()
+  }
+
+  const updateGame = (updates: Partial<Omit<Game, 'id' | 'currentCoins' | 'status'>>) => {
+    if (!currentGame.value) return
+    Object.assign(currentGame.value, updates)
+  }
+
+  const endGame = () => {
+    if (!currentGame.value) return
+
+    // Distribute bonus to top 3
+    const top3 = userStore.leaderboard.slice(0, 3)
+    const bonuses: number[] = [
+      currentGame.value.bonusTop1,
+      currentGame.value.bonusTop2,
+      currentGame.value.bonusTop3,
+    ]
+
+    top3.forEach((user, index) => {
+      const bonus = bonuses[index] ?? 0
+      if (bonus > 0) {
+        userStore.addCoins(user.id, bonus)
+
+        // Add transaction
+        const transaction: Transaction = {
+          id: generateId(),
+          userId: user.id,
+          amount: bonus,
+          type: 'task_reward',
+          description: `🏆 Bonus Top ${index + 1}: ${currentGame.value?.name}`,
+          timestamp: new Date(),
+        }
+        transactions.value.unshift(transaction)
+      }
+    })
+
+    // Set game as ended
+    currentGame.value.status = 'ended'
+    currentGame.value = null
   }
 
   const updateGameCoins = () => {
@@ -182,11 +256,17 @@ export const useGameStore = defineStore('game', () => {
     approvedTasks,
     teamProgress,
     isGameActive,
+    daysRemaining,
+    getTasksByUser,
+    getApprovedTasksCount,
+    teamContributions,
     // Actions
     submitTask,
     approveTask,
     rejectTask,
     createGame,
+    updateGame,
+    endGame,
     updateGameCoins,
   }
 })

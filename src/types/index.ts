@@ -1,9 +1,9 @@
 export interface User {
   id: string
   name: string
+  nickname: string
   role: 'employee' | 'manager'
   coins: number
-  streak: number
 }
 
 export interface Task {
@@ -24,9 +24,14 @@ export interface Game {
   targetCoins: number
   currentCoins: number
   reward: string
+  sponsorType: 'self' | 'company' | 'other'
   sponsor: string
   startDate: Date
   endDate: Date
+  bonusTop1: number
+  bonusTop2: number
+  bonusTop3: number
+  status: 'active' | 'ended'
 }
 
 export interface Transaction {
