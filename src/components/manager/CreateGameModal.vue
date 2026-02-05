@@ -182,13 +182,13 @@ const close = () => {
     <div class="space-y-5 max-h-[70vh] overflow-y-auto pr-2">
       <!-- Game Name -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Tên game</label>
+        <label class="block text-sm font-medium text-base mb-1">Tên game</label>
         <Input v-model="name" placeholder="VD: Sprint Tháng 2" />
       </div>
 
       <!-- Target Coins -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">🎯 Mục tiêu coins</label>
+        <label class="block text-sm font-medium text-base mb-2">🎯 Mục tiêu coins</label>
         <div class="flex flex-wrap gap-2">
           <button
             v-for="target in presetTargets"
@@ -197,7 +197,7 @@ const close = () => {
               'px-4 py-2 rounded-lg font-medium transition-all',
               targetCoins === target && !customTarget
                 ? 'bg-indigo-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
+                : 'bg-elevated text-base hover:brightness-110',
             ]"
             @click="selectTarget(target)"
           >
@@ -207,7 +207,7 @@ const close = () => {
             v-model="customTarget"
             type="number"
             placeholder="Khác..."
-            class="w-24 px-3 py-2 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+            class="w-24 px-3 py-2 rounded-lg border border-theme focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
             @input="handleCustomTarget"
           />
         </div>
@@ -215,13 +215,13 @@ const close = () => {
 
       <!-- Reward -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">🏆 Phần thưởng</label>
+        <label class="block text-sm font-medium text-base mb-1">🏆 Phần thưởng</label>
         <Input v-model="reward" placeholder="VD: Trà sữa cả team" />
       </div>
 
       <!-- Sponsor -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">💰 Ai tài trợ</label>
+        <label class="block text-sm font-medium text-base mb-2">💰 Ai tài trợ</label>
         <div class="space-y-2">
           <label class="flex items-center gap-2 cursor-pointer">
             <input v-model="sponsorType" type="radio" value="self" class="text-indigo-600" />
@@ -239,7 +239,7 @@ const close = () => {
               type="text"
               :disabled="sponsorType !== 'other'"
               placeholder="Tên sponsor..."
-              class="flex-1 px-3 py-1 rounded border border-gray-200 disabled:bg-gray-50 disabled:text-gray-400"
+              class="flex-1 px-3 py-1 rounded border border-theme disabled:bg-surface disabled:text-faint"
             />
           </label>
         </div>
@@ -248,76 +248,76 @@ const close = () => {
       <!-- Date Range -->
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">⏰ Bắt đầu</label>
+          <label class="block text-sm font-medium text-base mb-1">⏰ Bắt đầu</label>
           <input
             v-model="startDate"
             type="date"
-            class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+            class="w-full px-3 py-2 rounded-lg border border-theme focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
           />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Kết thúc</label>
+          <label class="block text-sm font-medium text-base mb-1">Kết thúc</label>
           <input
             v-model="endDate"
             type="date"
-            class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+            class="w-full px-3 py-2 rounded-lg border border-theme focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
           />
         </div>
       </div>
 
       <!-- Bonus -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">🥇 Bonus cuối tháng</label>
+        <label class="block text-sm font-medium text-base mb-2">🥇 Bonus cuối tháng</label>
         <div class="grid grid-cols-3 gap-3">
           <div>
-            <label class="block text-xs text-gray-500 mb-1">Top 1</label>
+            <label class="block text-xs text-muted mb-1">Top 1</label>
             <div class="flex items-center gap-1">
               <input
                 v-model.number="bonusTop1"
                 type="number"
                 min="0"
-                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                class="w-full px-3 py-2 rounded-lg border border-theme focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
               />
-              <span class="text-sm text-gray-500">coins</span>
+              <span class="text-sm text-muted">coins</span>
             </div>
           </div>
           <div>
-            <label class="block text-xs text-gray-500 mb-1">Top 2</label>
+            <label class="block text-xs text-muted mb-1">Top 2</label>
             <div class="flex items-center gap-1">
               <input
                 v-model.number="bonusTop2"
                 type="number"
                 min="0"
-                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                class="w-full px-3 py-2 rounded-lg border border-theme focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
               />
-              <span class="text-sm text-gray-500">coins</span>
+              <span class="text-sm text-muted">coins</span>
             </div>
           </div>
           <div>
-            <label class="block text-xs text-gray-500 mb-1">Top 3</label>
+            <label class="block text-xs text-muted mb-1">Top 3</label>
             <div class="flex items-center gap-1">
               <input
                 v-model.number="bonusTop3"
                 type="number"
                 min="0"
-                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                class="w-full px-3 py-2 rounded-lg border border-theme focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
               />
-              <span class="text-sm text-gray-500">coins</span>
+              <span class="text-sm text-muted">coins</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Preview -->
-      <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
-        <h4 class="text-sm font-medium text-gray-700 mb-3">📋 Preview</h4>
+      <div class="bg-surface rounded-lg p-4 border border-theme-light">
+        <h4 class="text-sm font-medium text-base mb-3">📋 Preview</h4>
         <div class="space-y-1 text-sm">
-          <p class="font-semibold text-gray-900">"{{ name || '...' }}"</p>
-          <p class="text-gray-600">Mục tiêu: {{ targetCoins }} coins</p>
-          <p class="text-gray-600">Reward: {{ reward || '...' }}</p>
-          <p class="text-gray-600">Sponsor: {{ sponsorDisplay }}</p>
-          <p class="text-gray-600">Thời gian: {{ formattedDateRange || '...' }}</p>
-          <p class="text-gray-600">Bonus: 🥇{{ bonusTop1 }} 🥈{{ bonusTop2 }} 🥉{{ bonusTop3 }}</p>
+          <p class="font-semibold text-base">"{{ name || '...' }}"</p>
+          <p class="text-muted">Mục tiêu: {{ targetCoins }} coins</p>
+          <p class="text-muted">Reward: {{ reward || '...' }}</p>
+          <p class="text-muted">Sponsor: {{ sponsorDisplay }}</p>
+          <p class="text-muted">Thời gian: {{ formattedDateRange || '...' }}</p>
+          <p class="text-muted">Bonus: 🥇{{ bonusTop1 }} 🥈{{ bonusTop2 }} 🥉{{ bonusTop3 }}</p>
         </div>
       </div>
     </div>

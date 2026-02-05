@@ -36,21 +36,21 @@ const handleEdit = () => {
       <div class="text-2xl">{{ reward.icon }}</div>
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-2">
-          <h4 class="font-medium text-gray-900 truncate">{{ reward.name }}</h4>
+          <h4 class="font-medium text-base truncate">{{ reward.name }}</h4>
           <span
             v-if="!reward.isActive"
-            class="text-xs px-2 py-0.5 bg-gray-200 text-gray-600 rounded-full"
+            class="text-xs px-2 py-0.5 bg-elevated text-muted rounded-full"
           >
             Tắt
           </span>
         </div>
-        <p class="text-sm text-gray-500 truncate">{{ reward.description }}</p>
+        <p class="text-sm text-muted truncate">{{ reward.description }}</p>
         <div class="flex items-center gap-3 mt-2 text-sm">
           <span class="text-amber-600 font-medium">{{ reward.cost }} coins</span>
-          <span class="text-gray-400">•</span>
-          <span class="text-gray-500">{{ categoryLabels[reward.category] }}</span>
-          <span v-if="reward.stock !== null" class="text-gray-400">•</span>
-          <span v-if="reward.stock !== null" class="text-gray-500">
+          <span class="text-faint">•</span>
+          <span class="text-muted">{{ categoryLabels[reward.category] }}</span>
+          <span v-if="reward.stock !== null" class="text-faint">•</span>
+          <span v-if="reward.stock !== null" class="text-muted">
             Còn {{ reward.stock }}
           </span>
         </div>

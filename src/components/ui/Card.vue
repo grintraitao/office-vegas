@@ -18,23 +18,23 @@ const paddingClasses = {
 }
 
 const variantClasses = {
-  default: 'bg-white rounded-xl shadow-sm border border-gray-100',
-  glass: 'glass rounded-xl',
-  solid: 'bg-slate-800/80 rounded-xl border border-white/10',
+  default: 'card',
+  glass: 'card',
+  solid: 'bg-surface rounded-xl border border-theme',
 }
 </script>
 
 <template>
   <div :class="variantClasses[props.variant]">
-    <div v-if="$slots.header || title" class="px-5 py-4 border-b border-white/10">
+    <div v-if="$slots.header || title" class="px-5 py-4 border-b border-theme-light">
       <slot name="header">
-        <h3 class="text-lg font-semibold text-white">{{ title }}</h3>
+        <h3 class="text-lg font-semibold text-base">{{ title }}</h3>
       </slot>
     </div>
     <div :class="paddingClasses[props.padding]">
       <slot />
     </div>
-    <div v-if="$slots.footer" class="px-5 py-4 bg-white/5 border-t border-white/10 rounded-b-xl">
+    <div v-if="$slots.footer" class="px-5 py-4 bg-elevated border-t border-theme-light rounded-b-xl">
       <slot name="footer" />
     </div>
   </div>

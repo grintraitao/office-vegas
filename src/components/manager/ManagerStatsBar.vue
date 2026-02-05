@@ -15,28 +15,28 @@ const employeeCount = computed(() => userStore.employees.length)
   <div class="grid grid-cols-3 gap-4">
     <Card padding="md">
       <div class="text-center">
-        <div class="text-2xl font-bold text-gray-900">
+        <div class="text-2xl font-bold text-base">
           <span class="text-lg">📥</span> {{ pendingCount }}
         </div>
-        <p class="text-sm text-gray-500 mt-1">Pending</p>
+        <p class="text-sm text-muted mt-1">Pending</p>
       </div>
     </Card>
 
     <Card padding="md">
       <div class="text-center">
-        <div class="text-2xl font-bold text-gray-900">
+        <div class="text-2xl font-bold text-base">
           <span class="text-lg">✅</span> {{ approvedCount }}
         </div>
-        <p class="text-sm text-gray-500 mt-1">Approved</p>
+        <p class="text-sm text-muted mt-1">Approved</p>
       </div>
     </Card>
 
     <Card padding="md">
       <div class="text-center">
-        <div class="text-2xl font-bold text-gray-900">
+        <div class="text-2xl font-bold text-base">
           <span class="text-lg">👥</span> {{ employeeCount }}
         </div>
-        <p class="text-sm text-gray-500 mt-1">Employees</p>
+        <p class="text-sm text-muted mt-1">Employees</p>
       </div>
     </Card>
   </div>

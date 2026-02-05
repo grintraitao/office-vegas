@@ -66,26 +66,26 @@ const handleReject = () => {
 <template>
   <div
     v-if="!showSuccess && !showRejected"
-    class="bg-white border border-gray-200 rounded-xl p-5 space-y-4"
+    class="card p-5 space-y-4"
   >
     <!-- Header -->
     <div class="flex items-start justify-between">
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-gray-500">👤</span>
-          <span class="font-medium text-gray-900">{{ task.userName }}</span>
+          <span class="text-muted">👤</span>
+          <span class="font-medium text-base">{{ task.userName }}</span>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mt-1">{{ task.title }}</h3>
+        <h3 class="text-lg font-semibold text-base mt-1">{{ task.title }}</h3>
       </div>
       <Badge variant="warning">Pending</Badge>
     </div>
 
     <!-- Outcome -->
     <div>
-      <p class="text-sm text-gray-500 mb-1">Outcome:</p>
+      <p class="text-sm text-muted mb-1">Outcome:</p>
       <p
         :class="[
-          'text-gray-700',
+          'text-base',
           !isExpanded && 'line-clamp-2'
         ]"
       >
@@ -101,13 +101,13 @@ const handleReject = () => {
     </div>
 
     <!-- Time -->
-    <p class="text-sm text-gray-400">
+    <p class="text-sm text-faint">
       Submitted: {{ getRelativeTime(task.createdAt) }}
     </p>
 
     <!-- Reward Selection -->
     <div class="space-y-2">
-      <p class="text-sm font-medium text-gray-700">Reward:</p>
+      <p class="text-sm font-medium text-base">Reward:</p>
       <div class="flex flex-wrap items-center gap-2">
         <button
           v-for="amount in quickRewards"
@@ -116,7 +116,7 @@ const handleReject = () => {
             'px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
             selectedReward === amount
               ? 'bg-indigo-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-elevated text-base hover:brightness-110'
           ]"
           @click="selectQuickReward(amount)"
         >
@@ -128,10 +128,10 @@ const handleReject = () => {
             :value="customReward"
             placeholder="Custom"
             min="1"
-            class="w-20 px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            class="w-20 px-2 py-1.5 text-sm border border-theme rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             @input="handleCustomInput"
           />
-          <span class="text-sm text-gray-500">coins</span>
+          <span class="text-sm text-muted">coins</span>
         </div>
       </div>
     </div>

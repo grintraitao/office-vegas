@@ -29,17 +29,17 @@ const rejectedTasks = computed(() =>
     <div class="space-y-6">
       <!-- Pending Tasks -->
       <div>
-        <h4 class="text-sm font-medium text-gray-500 mb-2">Pending</h4>
-        <div v-if="pendingTasks.length === 0" class="text-sm text-gray-400 italic">
+        <h4 class="text-sm font-medium text-muted mb-2">Pending</h4>
+        <div v-if="pendingTasks.length === 0" class="text-sm text-faint italic">
           No pending tasks
         </div>
         <ul v-else class="space-y-2">
           <li
             v-for="task in pendingTasks"
             :key="task.id"
-            class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+            class="flex items-center justify-between p-3 bg-surface rounded-lg"
           >
-            <span class="text-gray-900">{{ task.title }}</span>
+            <span class="text-base">{{ task.title }}</span>
             <Badge variant="warning">Chờ duyệt</Badge>
           </li>
         </ul>
@@ -47,8 +47,8 @@ const rejectedTasks = computed(() =>
 
       <!-- Approved Tasks -->
       <div>
-        <h4 class="text-sm font-medium text-gray-500 mb-2">Approved</h4>
-        <div v-if="approvedTasks.length === 0" class="text-sm text-gray-400 italic">
+        <h4 class="text-sm font-medium text-muted mb-2">Approved</h4>
+        <div v-if="approvedTasks.length === 0" class="text-sm text-faint italic">
           No approved tasks yet
         </div>
         <ul v-else class="space-y-2">
@@ -58,7 +58,7 @@ const rejectedTasks = computed(() =>
             class="flex items-center justify-between p-3 bg-green-50 rounded-lg"
           >
             <div class="flex items-center gap-2">
-              <span class="text-gray-900">{{ task.title }}</span>
+              <span class="text-base">{{ task.title }}</span>
               <span class="text-green-600 font-medium">+{{ task.reward }} 💰</span>
             </div>
             <Badge variant="success">Đã duyệt</Badge>
@@ -68,14 +68,14 @@ const rejectedTasks = computed(() =>
 
       <!-- Rejected Tasks -->
       <div v-if="rejectedTasks.length > 0">
-        <h4 class="text-sm font-medium text-gray-500 mb-2">Rejected</h4>
+        <h4 class="text-sm font-medium text-muted mb-2">Rejected</h4>
         <ul class="space-y-2">
           <li
             v-for="task in rejectedTasks"
             :key="task.id"
             class="flex items-center justify-between p-3 bg-red-50 rounded-lg"
           >
-            <span class="text-gray-900">{{ task.title }}</span>
+            <span class="text-base">{{ task.title }}</span>
             <Badge variant="danger">Từ chối</Badge>
           </li>
         </ul>

@@ -45,9 +45,9 @@ const handleRedeem = () => {
       <div class="text-3xl">{{ reward.icon }}</div>
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-2 mb-1">
-          <h3 class="font-semibold text-gray-900 truncate">{{ reward.name }}</h3>
+          <h3 class="font-semibold text-base truncate">{{ reward.name }}</h3>
         </div>
-        <p class="text-sm text-gray-500 line-clamp-2">{{ reward.description }}</p>
+        <p class="text-sm text-muted line-clamp-2">{{ reward.description }}</p>
       </div>
     </div>
 
@@ -55,12 +55,12 @@ const handleRedeem = () => {
       <span :class="['text-xs px-2 py-0.5 rounded-full', categoryColors[reward.category]]">
         {{ categoryLabels[reward.category] }}
       </span>
-      <span v-if="reward.stock !== null" class="text-xs text-gray-400">
+      <span v-if="reward.stock !== null" class="text-xs text-faint">
         Còn {{ reward.stock }}
       </span>
     </div>
 
-    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+    <div class="flex items-center justify-between mt-4 pt-3 border-t border-theme-light">
       <div class="flex items-center gap-1">
         <span class="text-lg font-bold text-amber-600">{{ reward.cost }}</span>
         <span class="text-amber-500">coins</span>

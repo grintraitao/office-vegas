@@ -27,7 +27,7 @@ const handleSwitchRole = (role: 'employee' | 'manager') => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-vegas text-white">
+  <div class="min-h-screen bg-base text-base">
     <AppHeader :user="user" @switch-role="handleSwitchRole" />
 
     <!-- Tab Bar (not shown on home page) -->

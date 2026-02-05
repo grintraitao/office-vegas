@@ -19,12 +19,12 @@ const formatNumber = (num: number) => num.toLocaleString()
 <template>
   <div class="w-full">
     <div v-if="showLabel" class="flex justify-between mb-1">
-      <span class="text-sm font-medium text-gray-700">
+      <span class="text-sm font-medium text-base">
         {{ formatNumber(current) }} / {{ formatNumber(target) }}
       </span>
-      <span class="text-sm font-medium text-gray-700">{{ Math.round(percentage) }}%</span>
+      <span class="text-sm font-medium text-base">{{ Math.round(percentage) }}%</span>
     </div>
-    <div class="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
+    <div class="w-full h-2.5 bg-elevated rounded-full overflow-hidden">
       <div
         class="h-full bg-indigo-600 rounded-full transition-all duration-300"
         :style="{ width: `${percentage}%` }"

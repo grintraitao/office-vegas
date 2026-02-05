@@ -46,37 +46,37 @@ const handleLogin = async () => {
 
 <template>
   <div class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
+    <div class="card shadow-2xl w-full max-w-md p-8">
       <!-- Logo -->
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-800">
+        <h1 class="text-4xl font-bold text-base">
           <span class="text-3xl">🎰</span> OfficeVegas
         </h1>
-        <p class="text-gray-500 mt-2">Đăng nhập để tiếp tục</p>
+        <p class="text-muted mt-2">Đăng nhập để tiếp tục</p>
       </div>
 
       <!-- Form -->
       <form @submit.prevent="handleLogin" class="space-y-5">
         <!-- Email -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <label class="block text-sm font-medium text-base mb-1">Email</label>
           <input
             v-model="email"
             type="email"
             placeholder="email@company.com"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            class="w-full px-4 py-3 border border-theme rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             :disabled="loading"
           />
         </div>
 
         <!-- Password -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
+          <label class="block text-sm font-medium text-base mb-1">Mật khẩu</label>
           <input
             v-model="password"
             type="password"
             placeholder="••••••••"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            class="w-full px-4 py-3 border border-theme rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             :disabled="loading"
           />
         </div>
@@ -109,7 +109,7 @@ const handleLogin = async () => {
 
       <!-- Register link -->
       <div class="mt-6 text-center">
-        <span class="text-gray-500">Chưa có tài khoản? </span>
+        <span class="text-muted">Chưa có tài khoản? </span>
         <router-link to="/register" class="text-indigo-600 hover:text-indigo-700 font-medium">
           Đăng ký
         </router-link>

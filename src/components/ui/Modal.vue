@@ -36,14 +36,14 @@ const sizeClasses = {
         <div class="fixed inset-0 bg-black/50" @click="close" />
         <div
           :class="[
-            'relative bg-white rounded-xl shadow-xl w-full',
+            'relative card shadow-xl w-full',
             sizeClasses[props.size],
           ]"
         >
-          <div v-if="title" class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-            <h3 class="text-lg font-semibold text-gray-900">{{ title }}</h3>
+          <div v-if="title" class="flex items-center justify-between px-6 py-4 border-b border-theme-light">
+            <h3 class="text-lg font-semibold text-base">{{ title }}</h3>
             <button
-              class="text-gray-400 hover:text-gray-600 transition-colors"
+              class="text-faint hover:text-muted transition-colors"
               @click="close"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,7 +54,7 @@ const sizeClasses = {
           <div class="p-6">
             <slot />
           </div>
-          <div v-if="$slots.footer" class="px-6 py-4 bg-gray-50 border-t border-gray-100 rounded-b-xl">
+          <div v-if="$slots.footer" class="px-6 py-4 bg-surface border-t border-theme-light rounded-b-xl">
             <slot name="footer" />
           </div>
         </div>

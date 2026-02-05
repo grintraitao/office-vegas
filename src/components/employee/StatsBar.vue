@@ -25,25 +25,25 @@ const tasksDone = computed(() => {
     <Card padding="md">
       <div class="text-center">
         <CoinDisplay :amount="currentUser?.coins ?? 0" size="lg" />
-        <p class="text-sm text-gray-500 mt-1">Coins</p>
+        <p class="text-sm text-muted mt-1">Coins</p>
       </div>
     </Card>
 
     <Card padding="md">
       <div class="text-center">
-        <div class="text-2xl font-bold text-gray-900">
+        <div class="text-2xl font-bold text-base">
           <span class="text-lg">📊</span> #{{ rank }}
         </div>
-        <p class="text-sm text-gray-500 mt-1">Rank</p>
+        <p class="text-sm text-muted mt-1">Rank</p>
       </div>
     </Card>
 
     <Card padding="md">
       <div class="text-center">
-        <div class="text-2xl font-bold text-gray-900">
+        <div class="text-2xl font-bold text-base">
           <span class="text-lg">✅</span> {{ tasksDone }}
         </div>
-        <p class="text-sm text-gray-500 mt-1">Tasks Done</p>
+        <p class="text-sm text-muted mt-1">Tasks Done</p>
       </div>
     </Card>
   </div>

@@ -14,10 +14,10 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const variantClasses = {
-  primary: 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40',
-  secondary: 'glass text-white hover:bg-white/20',
-  danger: 'bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white shadow-lg shadow-red-500/25',
-  ghost: 'bg-transparent text-purple-300 hover:text-white hover:bg-white/10',
+  primary: 'btn-primary shadow-lg',
+  secondary: 'btn-secondary',
+  danger: 'bg-danger text-white hover:brightness-110 shadow-lg',
+  ghost: 'bg-transparent text-muted hover:text-base hover:bg-elevated',
 }
 
 const sizeClasses = {

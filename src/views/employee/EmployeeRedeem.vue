@@ -13,8 +13,8 @@ const currentUser = computed(() => userStore.currentUser)
     <!-- Header with coin balance -->
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-white">Đổi Thưởng</h1>
-        <p class="text-purple-200/70">Dùng coins để đổi các phần thưởng hấp dẫn</p>
+        <h1 class="text-2xl font-bold text-base">Đổi Thưởng</h1>
+        <p class="text-muted">Dùng coins để đổi các phần thưởng hấp dẫn</p>
       </div>
       <Card class="flex items-center gap-2 !bg-gradient-to-r !from-amber-500/20 !to-yellow-500/20 !border-amber-500/30">
         <span class="text-2xl">💰</span>

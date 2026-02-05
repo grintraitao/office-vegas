@@ -66,7 +66,7 @@ const closeModal = () => {
           'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors',
           selectedCategory === cat.value
             ? 'bg-indigo-600 text-white'
-            : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+            : 'bg-elevated text-muted hover:brightness-110',
         ]"
         @click="selectedCategory = cat.value"
       >
@@ -85,7 +85,7 @@ const closeModal = () => {
       />
     </div>
 
-    <div v-if="sortedRewards.length === 0" class="text-center py-12 text-gray-500">
+    <div v-if="sortedRewards.length === 0" class="text-center py-12 text-muted">
       Không có phần thưởng nào trong danh mục này
     </div>
 
@@ -94,10 +94,10 @@ const closeModal = () => {
       <template v-if="!redeemSuccess">
         <div class="text-center">
           <div class="text-5xl mb-4">{{ selectedReward?.icon }}</div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          <h3 class="text-lg font-semibold text-base mb-2">
             Xác nhận đổi thưởng
           </h3>
-          <p class="text-gray-600 mb-4">
+          <p class="text-muted mb-4">
             Bạn muốn đổi <strong>{{ selectedReward?.cost }} coins</strong> lấy
             <strong>{{ selectedReward?.name }}</strong>?
           </p>
@@ -114,7 +114,7 @@ const closeModal = () => {
           <h3 class="text-lg font-semibold text-green-600 mb-2">
             Đổi thưởng thành công!
           </h3>
-          <p class="text-gray-600 mb-4">
+          <p class="text-muted mb-4">
             Bạn đã đổi <strong>{{ selectedReward?.name }}</strong>.<br />
             Manager sẽ xác nhận và trao thưởng cho bạn sớm nhất!
           </p>

@@ -40,7 +40,7 @@ const navigate = (path: string) => {
 
 <template>
   <!-- Desktop: Top bar under header -->
-  <nav class="hidden md:block glass-dark border-b border-white/10">
+  <nav class="hidden md:block glass-dark border-b border-theme-light">
     <div class="max-w-5xl mx-auto px-4">
       <div class="flex gap-1">
         <button
@@ -49,8 +49,8 @@ const navigate = (path: string) => {
           :class="[
             'flex items-center gap-2 py-3 px-4 text-sm font-medium transition-all duration-200 rounded-t-lg',
             isActive(tab.path)
-              ? 'bg-white/10 text-white border-b-2 border-purple-400'
-              : 'text-purple-200/70 hover:text-white hover:bg-white/5',
+              ? 'bg-elevated text-base border-b-2 border-primary'
+              : 'text-muted hover:text-base hover:bg-elevated',
           ]"
           @click="navigate(tab.path)"
         >
@@ -62,7 +62,7 @@ const navigate = (path: string) => {
   </nav>
 
   <!-- Mobile: Fixed bottom bar -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 glass-dark border-t border-white/10 z-50">
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 glass-dark border-t border-theme-light z-50">
     <div class="flex justify-around">
       <button
         v-for="tab in tabs"
@@ -70,8 +70,8 @@ const navigate = (path: string) => {
         :class="[
           'flex flex-col items-center py-3 px-2 text-xs font-medium transition-all duration-200 flex-1',
           isActive(tab.path)
-            ? 'text-white'
-            : 'text-purple-200/60 hover:text-white',
+            ? 'text-base'
+            : 'text-muted hover:text-base',
         ]"
         @click="navigate(tab.path)"
       >

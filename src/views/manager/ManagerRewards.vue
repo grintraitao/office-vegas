@@ -32,8 +32,8 @@ const handleCloseModal = () => {
   <div class="space-y-6">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-white">Quản lý Phần thưởng</h1>
-        <p class="text-purple-200/70">Thêm, sửa và quản lý các phần thưởng cho team</p>
+        <h1 class="text-2xl font-bold text-base">Quản lý Phần thưởng</h1>
+        <p class="text-muted">Thêm, sửa và quản lý các phần thưởng cho team</p>
       </div>
       <Button variant="primary" @click="handleAddNew">
         + Thêm phần thưởng

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { Card, Button, CoinDisplay } from '@/components/ui'
 import { useUserStore, useLotteryStore } from '@/stores'
 import DualSlider from './DualSlider.vue'
@@ -81,13 +81,9 @@ const canSpin = computed(() =>
   !isSpinning.value
 )
 
-// Clear result marker when range changes
-watch([lowRange, highRange], () => {
-  if (!isSpinning.value) {
-    resultMarker.value = null
-    isHit.value = null
-  }
-})
+// Note: Result marker is cleared when:
+// 1. Starting a new spin (in spin function)
+// 2. After closing result modal (with 2s delay in closeResult)
 
 // Methods
 const selectQuickBet = (amount: number) => {
@@ -164,7 +160,7 @@ const closeResult = () => {
     <div class="space-y-6">
       <!-- Dual Range Slider -->
       <div>
-        <p class="text-sm font-medium text-gray-700 mb-2">
+        <p class="text-sm font-medium text-base mb-2">
           Chọn khoảng số may mắn:
         </p>
 
@@ -180,7 +176,7 @@ const closeResult = () => {
 
         <!-- Range Info -->
         <div class="flex justify-between items-center mt-2 text-sm">
-          <span class="text-gray-600">
+          <span class="text-muted">
             Khoảng: <span class="font-semibold">{{ rangeSize }}</span> số ({{ (probability * 100).toFixed(1) }}%)
           </span>
           <span class="font-semibold">
@@ -190,19 +186,19 @@ const closeResult = () => {
       </div>
 
       <!-- Summary Box -->
-      <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+      <div class="bg-surface rounded-lg p-4 border border-theme">
         <div class="grid grid-cols-2 gap-3 text-sm">
           <div class="flex items-center gap-2">
-            <span class="text-gray-500">📊 Xác suất:</span>
+            <span class="text-muted">📊 Xác suất:</span>
             <span class="font-semibold">{{ (probability * 100).toFixed(1) }}%</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-gray-500">💎 Multiplier:</span>
+            <span class="text-muted">💎 Multiplier:</span>
             <span class="font-semibold">x{{ multiplier }}</span>
             <span :class="['text-xs', riskLevel.color]">{{ riskLevel.label }}</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-gray-500">💰 Cược:</span>
+            <span class="text-muted">💰 Cược:</span>
             <span class="font-semibold">{{ betAmount }} coins</span>
           </div>
           <div class="flex items-center gap-2">
@@ -218,7 +214,7 @@ const closeResult = () => {
 
       <!-- Bet Selection -->
       <div>
-        <p class="text-sm font-medium text-gray-700 mb-2">Đặt cược:</p>
+        <p class="text-sm font-medium text-base mb-2">Đặt cược:</p>
         <div class="flex flex-wrap items-center gap-2">
           <button
             v-for="amount in quickBets"
@@ -229,8 +225,8 @@ const closeResult = () => {
               betAmount === amount && !customBet
                 ? 'bg-indigo-600 text-white'
                 : amount > balance || isSpinning
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-elevated text-faint cursor-not-allowed'
+                  : 'bg-elevated text-base hover:brightness-110'
             ]"
             @click="selectQuickBet(amount)"
           >
@@ -243,7 +239,7 @@ const closeResult = () => {
               betAmount === balance && balance > 0 && !customBet
                 ? 'bg-red-600 text-white'
                 : balance === 0 || isSpinning
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  ? 'bg-elevated text-faint cursor-not-allowed'
                   : 'bg-red-100 text-red-700 hover:bg-red-200'
             ]"
             @click="handleAllIn"
@@ -258,7 +254,7 @@ const closeResult = () => {
               placeholder="Khác"
               min="1"
               :max="balance"
-              class="w-20 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+              class="w-20 px-3 py-2 text-sm border border-theme rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:bg-elevated disabled:cursor-not-allowed"
               @input="handleCustomBet"
             />
           </div>
@@ -267,7 +263,7 @@ const closeResult = () => {
 
       <!-- Balance -->
       <div class="flex items-center gap-2 py-2">
-        <span class="text-gray-600">💰 Balance:</span>
+        <span class="text-muted">💰 Balance:</span>
         <CoinDisplay :amount="balance" size="md" />
       </div>
 

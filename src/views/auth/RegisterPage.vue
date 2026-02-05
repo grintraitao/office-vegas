@@ -49,68 +49,68 @@ const handleRegister = async () => {
 
 <template>
   <div class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
+    <div class="card shadow-2xl w-full max-w-md p-8">
       <!-- Logo -->
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-800">
+        <h1 class="text-4xl font-bold text-base">
           <span class="text-3xl">🎰</span> OfficeVegas
         </h1>
-        <p class="text-gray-500 mt-2">Tạo tài khoản mới</p>
+        <p class="text-muted mt-2">Tạo tài khoản mới</p>
       </div>
 
       <!-- Form -->
       <form @submit.prevent="handleRegister" class="space-y-4">
         <!-- Name -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Tên</label>
+          <label class="block text-sm font-medium text-base mb-1">Tên</label>
           <input
             v-model="name"
             type="text"
             placeholder="Nguyễn Văn A"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            class="w-full px-4 py-3 border border-theme rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             :disabled="loading"
           />
         </div>
 
         <!-- Nickname -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Nickname</label>
+          <label class="block text-sm font-medium text-base mb-1">Nickname</label>
           <input
             v-model="nickname"
             type="text"
             placeholder="AnhA"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            class="w-full px-4 py-3 border border-theme rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             :disabled="loading"
           />
         </div>
 
         <!-- Email -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <label class="block text-sm font-medium text-base mb-1">Email</label>
           <input
             v-model="email"
             type="email"
             placeholder="email@company.com"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            class="w-full px-4 py-3 border border-theme rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             :disabled="loading"
           />
         </div>
 
         <!-- Password -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
+          <label class="block text-sm font-medium text-base mb-1">Mật khẩu</label>
           <input
             v-model="password"
             type="password"
             placeholder="Tối thiểu 6 ký tự"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            class="w-full px-4 py-3 border border-theme rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             :disabled="loading"
           />
         </div>
 
         <!-- Role -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Vai trò</label>
+          <label class="block text-sm font-medium text-base mb-2">Vai trò</label>
           <div class="flex gap-6">
             <label class="flex items-center gap-2 cursor-pointer">
               <input
@@ -120,7 +120,7 @@ const handleRegister = async () => {
                 class="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
                 :disabled="loading"
               />
-              <span class="text-gray-700">Employee</span>
+              <span class="text-base">Employee</span>
             </label>
             <label class="flex items-center gap-2 cursor-pointer">
               <input
@@ -130,7 +130,7 @@ const handleRegister = async () => {
                 class="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
                 :disabled="loading"
               />
-              <span class="text-gray-700">Manager</span>
+              <span class="text-base">Manager</span>
             </label>
           </div>
         </div>
@@ -163,7 +163,7 @@ const handleRegister = async () => {
 
       <!-- Login link -->
       <div class="mt-6 text-center">
-        <span class="text-gray-500">Đã có tài khoản? </span>
+        <span class="text-muted">Đã có tài khoản? </span>
         <router-link to="/login" class="text-indigo-600 hover:text-indigo-700 font-medium">
           Đăng nhập
         </router-link>

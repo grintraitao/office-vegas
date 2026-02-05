@@ -29,23 +29,23 @@ const getRelativeTime = (date: Date | null) => {
 <template>
   <Card title="📜 Recently Approved" padding="md">
     <div v-if="recentApproved.length === 0" class="text-center py-4">
-      <p class="text-gray-400 text-sm">Chưa có task nào được duyệt</p>
+      <p class="text-faint text-sm">Chưa có task nào được duyệt</p>
     </div>
 
     <ul v-else class="space-y-3">
       <li
         v-for="task in recentApproved"
         :key="task.id"
-        class="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
+        class="flex items-center justify-between py-2 border-b border-theme-light last:border-0"
       >
         <div class="flex items-center gap-2">
-          <span class="text-gray-500">👤</span>
-          <span class="font-medium text-gray-900">{{ task.userName }}</span>
-          <span class="text-gray-400">-</span>
-          <span class="text-gray-700">{{ task.title }}</span>
+          <span class="text-muted">👤</span>
+          <span class="font-medium text-base">{{ task.userName }}</span>
+          <span class="text-faint">-</span>
+          <span class="text-base">{{ task.title }}</span>
           <span class="text-green-600 font-medium">(+{{ task.reward }} 💰)</span>
         </div>
-        <span class="text-sm text-gray-400">{{ getRelativeTime(task.reviewedAt) }}</span>
+        <span class="text-sm text-faint">{{ getRelativeTime(task.reviewedAt) }}</span>
       </li>
     </ul>
   </Card>

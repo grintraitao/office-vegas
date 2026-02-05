@@ -27,6 +27,6 @@ const handleSwitchRole = (role: 'employee' | 'manager') => {
     <RouterView />
   </AppLayout>
   <div v-else class="min-h-screen flex items-center justify-center">
-    <p class="text-gray-500">Loading...</p>
+    <p class="text-muted">Loading...</p>
   </div>
 </template>

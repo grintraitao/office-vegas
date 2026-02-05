@@ -47,7 +47,7 @@ watch(
 </script>
 
 <template>
-  <div class="relative inline-flex items-center gap-1 font-semibold text-gray-900">
+  <div class="relative inline-flex items-center gap-1 font-semibold text-base">
     <span :class="iconSizes[props.size]">💰</span>
     <span :class="sizeClasses[props.size]">{{ formatNumber(amount) }}</span>
     <Transition name="change">

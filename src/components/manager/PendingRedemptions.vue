@@ -34,13 +34,13 @@ const handleCancel = (redemptionId: string) => {
 <template>
   <Card>
     <div class="flex items-center justify-between mb-4">
-      <h3 class="font-semibold text-gray-900">Yêu cầu đổi thưởng</h3>
+      <h3 class="font-semibold text-base">Yêu cầu đổi thưởng</h3>
       <Badge v-if="pendingRedemptions.length > 0" variant="warning">
         {{ pendingRedemptions.length }} chờ duyệt
       </Badge>
     </div>
 
-    <div v-if="pendingRedemptions.length === 0" class="text-center py-8 text-gray-500">
+    <div v-if="pendingRedemptions.length === 0" class="text-center py-8 text-muted">
       Không có yêu cầu nào đang chờ
     </div>
 
@@ -48,16 +48,16 @@ const handleCancel = (redemptionId: string) => {
       <div
         v-for="redemption in pendingRedemptions"
         :key="redemption.id"
-        class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+        class="flex items-center gap-3 p-3 bg-surface rounded-lg"
       >
         <div class="text-2xl">
           {{ rewardStore.getRewardById(redemption.rewardId)?.icon }}
         </div>
         <div class="flex-1 min-w-0">
-          <p class="font-medium text-gray-900">
+          <p class="font-medium text-base">
             {{ rewardStore.getRewardById(redemption.rewardId)?.name }}
           </p>
-          <p class="text-sm text-gray-500">
+          <p class="text-sm text-muted">
             {{ getUserName(redemption.userId) }} • {{ formatDate(redemption.redeemedAt) }}
           </p>
         </div>

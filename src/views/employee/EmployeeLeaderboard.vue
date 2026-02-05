@@ -5,8 +5,8 @@ import { Leaderboard } from '@/components/shared'
 <template>
   <div class="space-y-6">
     <div>
-      <h1 class="text-2xl font-bold text-white">Bảng Xếp Hạng</h1>
-      <p class="text-purple-200/70 mt-1">Xem thứ hạng và lịch sử top 1 qua các tháng</p>
+      <h1 class="text-2xl font-bold text-base">Bảng Xếp Hạng</h1>
+      <p class="text-muted mt-1">Xem thứ hạng và lịch sử top 1 qua các tháng</p>
     </div>
 
     <Leaderboard />

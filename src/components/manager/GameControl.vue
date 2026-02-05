@@ -34,30 +34,30 @@ const handleEndGame = () => {
         <div class="flex-1">
           <div class="flex items-center gap-2 mb-2">
             <span class="text-lg">🎮</span>
-            <span class="text-sm font-medium text-gray-500">GAME HIỆN TẠI:</span>
-            <span class="font-semibold text-gray-900">"{{ game.name }}"</span>
+            <span class="text-sm font-medium text-muted">GAME HIỆN TẠI:</span>
+            <span class="font-semibold text-base">"{{ game.name }}"</span>
           </div>
 
           <div class="flex items-center gap-4">
             <div class="flex-1">
               <ProgressBar :current="game?.currentCoins ?? 0" :target="game?.targetCoins ?? 1" show-label />
             </div>
-            <div class="text-sm text-gray-600 whitespace-nowrap">
+            <div class="text-sm text-muted whitespace-nowrap">
               Còn <span class="font-semibold text-indigo-600">{{ daysRemaining }}</span> ngày
             </div>
           </div>
 
-          <div class="mt-3 flex items-center gap-2 text-sm text-gray-500">
+          <div class="mt-3 flex items-center gap-2 text-sm text-muted">
             <span>🎯 {{ game.targetCoins }} coins</span>
-            <span class="text-gray-300">|</span>
+            <span class="text-faint">|</span>
             <span>🏆 {{ game.reward }}</span>
-            <span class="text-gray-300">|</span>
+            <span class="text-faint">|</span>
             <span>💰 {{ game.sponsor }}</span>
           </div>
         </div>
       </div>
 
-      <div class="mt-4 pt-4 border-t border-gray-100 flex gap-2">
+      <div class="mt-4 pt-4 border-t border-theme-light flex gap-2">
         <Button variant="secondary" size="sm" @click="openCreateModal(true)">
           📝 Chỉnh sửa
         </Button>
@@ -91,7 +91,7 @@ const handleEndGame = () => {
   <!-- End Game Confirmation Modal -->
   <Modal :is-open="showEndConfirm" title="⚠️ Kết thúc Game" size="sm" @close="showEndConfirm = false">
     <div class="space-y-4">
-      <p class="text-gray-600">
+      <p class="text-muted">
         Bạn có chắc muốn kết thúc game <span class="font-semibold">"{{ game?.name }}"</span> sớm?
       </p>
       <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm">

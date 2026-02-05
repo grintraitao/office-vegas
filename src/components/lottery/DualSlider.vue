@@ -123,7 +123,7 @@ onUnmounted(() => {
   <div class="relative pt-10 pb-4 px-3 select-none">
     <!-- Low Value Label -->
     <div
-      class="absolute top-0 -translate-x-1/2 text-sm font-semibold text-gray-700 bg-white px-2 py-0.5 rounded shadow-sm border transition-all"
+      class="absolute top-0 -translate-x-1/2 text-sm font-semibold text-base bg-surface px-2 py-0.5 rounded shadow-sm border transition-all"
       :class="isDraggingLow ? 'scale-110' : ''"
       :style="{ left: `${lowPercent}%` }"
     >
@@ -132,7 +132,7 @@ onUnmounted(() => {
 
     <!-- High Value Label -->
     <div
-      class="absolute top-0 -translate-x-1/2 text-sm font-semibold text-gray-700 bg-white px-2 py-0.5 rounded shadow-sm border transition-all"
+      class="absolute top-0 -translate-x-1/2 text-sm font-semibold text-base bg-surface px-2 py-0.5 rounded shadow-sm border transition-all"
       :class="isDraggingHigh ? 'scale-110' : ''"
       :style="{ left: `${highPercent}%` }"
     >
@@ -140,7 +140,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Track -->
-    <div ref="trackRef" class="relative h-3 bg-gray-200 rounded-full cursor-pointer">
+    <div ref="trackRef" class="relative h-3 bg-elevated rounded-full cursor-pointer">
       <!-- Filled Range -->
       <div
         :class="['absolute h-full rounded-full transition-colors', riskColor, resultMarker !== null && isHit ? 'animate-pulse' : '']"
@@ -187,7 +187,7 @@ onUnmounted(() => {
       <!-- Low Handle -->
       <div
         :class="[
-          'absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-white rounded-full border-2 shadow-md cursor-grab transition-all z-10',
+          'absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-surface rounded-full border-2 shadow-md cursor-grab transition-all z-10',
           riskBorderColor,
           isDraggingLow ? 'scale-125 shadow-lg cursor-grabbing' : 'hover:scale-110',
         ]"
@@ -199,7 +199,7 @@ onUnmounted(() => {
       <!-- High Handle -->
       <div
         :class="[
-          'absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-white rounded-full border-2 shadow-md cursor-grab transition-all z-10',
+          'absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-surface rounded-full border-2 shadow-md cursor-grab transition-all z-10',
           riskBorderColor,
           isDraggingHigh ? 'scale-125 shadow-lg cursor-grabbing' : 'hover:scale-110',
         ]"
@@ -210,7 +210,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Min/Max Labels -->
-    <div class="flex justify-between mt-2 text-xs text-gray-400">
+    <div class="flex justify-between mt-2 text-xs text-faint">
       <span>{{ min }}</span>
       <span>{{ max }}</span>
     </div>
@@ -219,20 +219,35 @@ onUnmounted(() => {
 
 <style scoped>
 .drop-enter-active {
-  animation: drop 0.3s ease-out;
+  animation: drop 0.4s ease-out forwards;
+}
+
+.drop-leave-active {
+  animation: drop-out 0.2s ease-in forwards;
 }
 
 @keyframes drop {
   0% {
-    transform: translateY(-20px) translateX(-50%);
     opacity: 0;
+    transform: translate(-50%, -100%);
   }
   60% {
-    transform: translateY(5px) translateX(-50%);
+    transform: translate(-50%, -40%);
   }
   100% {
-    transform: translateY(-50%) translateX(-50%);
     opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes drop-out {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -100%);
   }
 }
 </style>

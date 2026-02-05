@@ -25,9 +25,9 @@ const formatDate = (date: Date) => {
 
 <template>
   <div>
-    <h3 class="font-semibold text-gray-900 mb-3">Lịch sử đổi thưởng</h3>
+    <h3 class="font-semibold text-base mb-3">Lịch sử đổi thưởng</h3>
 
-    <div v-if="redemptions.length === 0" class="text-center py-8 text-gray-500">
+    <div v-if="redemptions.length === 0" class="text-center py-8 text-muted">
       Bạn chưa đổi thưởng nào
     </div>
 
@@ -41,10 +41,10 @@ const formatDate = (date: Date) => {
           {{ rewardStore.getRewardById(redemption.rewardId)?.icon }}
         </div>
         <div class="flex-1 min-w-0">
-          <p class="font-medium text-gray-900 truncate">
+          <p class="font-medium text-base truncate">
             {{ rewardStore.getRewardById(redemption.rewardId)?.name }}
           </p>
-          <p class="text-xs text-gray-500">{{ formatDate(redemption.redeemedAt) }}</p>
+          <p class="text-xs text-muted">{{ formatDate(redemption.redeemedAt) }}</p>
         </div>
         <span
           :class="[

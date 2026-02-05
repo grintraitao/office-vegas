@@ -19,10 +19,10 @@ const getRankEmoji = (rank: number) => {
 }
 
 const getRankClass = (rank: number) => {
-  if (rank === 1) return 'bg-yellow-50 border-yellow-200'
-  if (rank === 2) return 'bg-gray-50 border-gray-200'
-  if (rank === 3) return 'bg-orange-50 border-orange-200'
-  return 'bg-white border-gray-100'
+  if (rank === 1) return 'bg-yellow-500/10 border-yellow-500/30'
+  if (rank === 2) return 'bg-surface border-theme-light'
+  if (rank === 3) return 'bg-orange-500/10 border-orange-500/30'
+  return 'bg-surface border-theme-light'
 }
 </script>
 
@@ -32,7 +32,7 @@ const getRankClass = (rank: number) => {
     <Card padding="md">
       <template #header>
         <div class="flex items-center justify-between">
-          <h3 class="text-lg font-semibold text-gray-900">🏆 Leaderboard - {{ currentMonth }}</h3>
+          <h3 class="text-lg font-semibold text-base">🏆 Leaderboard - {{ currentMonth }}</h3>
         </div>
       </template>
 
@@ -49,7 +49,7 @@ const getRankClass = (rank: number) => {
           <div class="flex items-center gap-3">
             <span class="text-xl w-8 text-center">{{ getRankEmoji(index + 1) }}</span>
             <div>
-              <span class="font-medium text-gray-900">{{ user.nickname }}</span>
+              <span class="font-medium text-base">{{ user.nickname }}</span>
               <span v-if="user.id === currentUser?.id" class="text-xs text-indigo-600 ml-2">(Bạn)</span>
             </div>
           </div>

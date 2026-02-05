@@ -68,7 +68,7 @@ const hoveredIndex = ref<number | null>(null)
       <!-- Chart Container -->
       <div class="relative h-64">
         <!-- Y-axis labels -->
-        <div class="absolute left-0 top-0 bottom-8 w-10 flex flex-col justify-between text-xs text-gray-400">
+        <div class="absolute left-0 top-0 bottom-8 w-10 flex flex-col justify-between text-xs text-faint">
           <span v-for="label in yAxisLabels" :key="label">{{ label }}</span>
         </div>
 
@@ -76,7 +76,7 @@ const hoveredIndex = ref<number | null>(null)
         <div class="absolute left-12 right-4 top-0 bottom-0">
           <!-- Grid lines -->
           <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
-            <div v-for="i in 5" :key="i" class="border-t border-gray-100 w-full" />
+            <div v-for="i in 5" :key="i" class="border-t border-theme-light w-full" />
           </div>
 
           <!-- SVG for line -->
@@ -140,7 +140,7 @@ const hoveredIndex = ref<number | null>(null)
           </div>
 
           <!-- X-axis labels -->
-          <div class="absolute -bottom-6 left-0 right-0 flex justify-between text-xs text-gray-400">
+          <div class="absolute -bottom-6 left-0 right-0 flex justify-between text-xs text-faint">
             <span
               v-for="(item, index) in history"
               :key="item.month"
@@ -149,15 +149,15 @@ const hoveredIndex = ref<number | null>(null)
             >
               {{ item.month.split('/')[0] }}
               <br />
-              <span class="text-gray-300">{{ item.month.split('/')[1] }}</span>
+              <span class="text-faint">{{ item.month.split('/')[1] }}</span>
             </span>
           </div>
         </div>
       </div>
 
       <!-- Dominant winner footer -->
-      <div class="mt-8 pt-4 border-t border-gray-100 text-center">
-        <span class="text-gray-600">
+      <div class="mt-8 pt-4 border-t border-theme-light text-center">
+        <span class="text-muted">
           <span :class="(colorClasses[history.find(h => h.nickname === dominant.nickname)?.color ?? 'indigo']?.text) ?? 'text-indigo-600'" class="font-bold">
             {{ dominant.nickname }}
           </span>

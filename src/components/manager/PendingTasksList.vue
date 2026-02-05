@@ -13,7 +13,7 @@ const pendingTasks = computed(() => gameStore.pendingTasks)
   <Card title="📥 Pending Reviews" padding="md">
     <div v-if="pendingTasks.length === 0" class="text-center py-8">
       <div class="text-4xl mb-3">🎉</div>
-      <p class="text-gray-500">Không có task nào chờ duyệt!</p>
+      <p class="text-muted">Không có task nào chờ duyệt!</p>
     </div>
 
     <div v-else class="space-y-4">
