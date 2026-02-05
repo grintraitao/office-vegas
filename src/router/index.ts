@@ -16,14 +16,19 @@ const router = createRouter({
       component: () => import('@/views/employee/EmployeeDashboard.vue'),
     },
     {
+      path: '/employee/leaderboard',
+      name: 'employee-leaderboard',
+      component: () => import('@/views/employee/EmployeeLeaderboard.vue'),
+    },
+    {
       path: '/employee/lottery',
       name: 'employee-lottery',
       component: () => import('@/views/employee/EmployeeLottery.vue'),
     },
     {
-      path: '/employee/leaderboard',
-      name: 'employee-leaderboard',
-      component: () => import('@/views/employee/EmployeeLeaderboard.vue'),
+      path: '/employee/redeem',
+      name: 'employee-redeem',
+      component: () => import('@/views/employee/EmployeeRedeem.vue'),
     },
     // Manager routes
     {

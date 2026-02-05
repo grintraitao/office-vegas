@@ -17,8 +17,9 @@ interface Tab {
 
 const employeeTabs: Tab[] = [
   { icon: '🏠', label: 'Dashboard', path: '/employee' },
+  { icon: '🏆', label: 'Xếp Hạng', path: '/employee/leaderboard' },
   { icon: '🎰', label: 'Xổ Số', path: '/employee/lottery' },
-  { icon: '🏆', label: 'Bảng Xếp Hạng', path: '/employee/leaderboard' },
+  { icon: '🎁', label: 'Đổi Thưởng', path: '/employee/redeem' },
 ]
 
 const managerTabs: Tab[] = [

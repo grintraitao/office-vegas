@@ -51,3 +51,25 @@ export interface LotteryBet {
   result: number | null
   won: boolean | null
 }
+
+export type RewardCategory = 'fun' | 'privilege' | 'bonding' | 'status' | 'treat'
+
+export interface Reward {
+  id: string
+  icon: string
+  name: string
+  description: string
+  cost: number
+  category: RewardCategory
+  stock: number | null // null = unlimited
+  isActive: boolean
+  createdBy: string // manager userId
+}
+
+export interface RewardRedemption {
+  id: string
+  rewardId: string
+  userId: string
+  redeemedAt: Date
+  status: 'pending' | 'fulfilled' | 'cancelled'
+}
