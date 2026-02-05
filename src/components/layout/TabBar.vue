@@ -25,7 +25,8 @@ const employeeTabs: Tab[] = [
 const managerTabs: Tab[] = [
   { icon: '🏠', label: 'Dashboard', path: '/manager' },
   { icon: '📥', label: 'Duyệt Task', path: '/manager/reviews' },
-  { icon: '🏆', label: 'Bảng Xếp Hạng', path: '/manager/leaderboard' },
+  { icon: '🏆', label: 'Xếp Hạng', path: '/manager/leaderboard' },
+  { icon: '🎁', label: 'Phần Thưởng', path: '/manager/rewards' },
 ]
 
 const tabs = computed(() => (isManager.value ? managerTabs : employeeTabs))

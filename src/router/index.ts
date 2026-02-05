@@ -46,6 +46,11 @@ const router = createRouter({
       name: 'manager-leaderboard',
       component: () => import('@/views/manager/ManagerLeaderboard.vue'),
     },
+    {
+      path: '/manager/rewards',
+      name: 'manager-rewards',
+      component: () => import('@/views/manager/ManagerRewards.vue'),
+    },
   ],
 })
 
