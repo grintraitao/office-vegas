@@ -9,7 +9,6 @@ export default {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: true, // Enable all 32+ themes
-    darkTheme: "night",
+    themes: ["night"],
   },
 }
