@@ -90,7 +90,7 @@ const closeModal = () => {
     </div>
 
     <!-- Confirm Modal -->
-    <Modal :show="showConfirmModal" @close="closeModal">
+    <Modal :isOpen="showConfirmModal" @close="closeModal">
       <template v-if="!redeemSuccess">
         <div class="text-center">
           <div class="text-5xl mb-4">{{ selectedReward?.icon }}</div>
