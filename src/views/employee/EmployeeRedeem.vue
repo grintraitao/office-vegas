@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useUserStore } from '@/stores'
-import { AppLayout } from '@/components/layout'
-import { Card, CoinDisplay } from '@/components/ui'
+import { Card } from '@/components/ui'
 import { RewardsList, MyRedemptions } from '@/components/redeem'
 
 const userStore = useUserStore()
@@ -10,32 +9,30 @@ const currentUser = computed(() => userStore.currentUser)
 </script>
 
 <template>
-  <AppLayout>
-    <div class="max-w-5xl mx-auto px-4 py-6 space-y-6">
-      <!-- Header with coin balance -->
-      <div class="flex items-center justify-between">
-        <div>
-          <h1 class="text-2xl font-bold text-gray-900">Đổi Thưởng</h1>
-          <p class="text-gray-500">Dùng coins để đổi các phần thưởng hấp dẫn</p>
-        </div>
-        <Card class="flex items-center gap-2 bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-200">
-          <span class="text-2xl">💰</span>
-          <div>
-            <p class="text-xs text-amber-600 font-medium">Số dư</p>
-            <p class="text-xl font-bold text-amber-700">{{ currentUser?.coins ?? 0 }} coins</p>
-          </div>
-        </Card>
+  <div class="space-y-6">
+    <!-- Header with coin balance -->
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Đổi Thưởng</h1>
+        <p class="text-gray-500">Dùng coins để đổi các phần thưởng hấp dẫn</p>
       </div>
-
-      <!-- Rewards List -->
-      <section>
-        <RewardsList />
-      </section>
-
-      <!-- My Redemptions -->
-      <section>
-        <MyRedemptions />
-      </section>
+      <Card class="flex items-center gap-2 bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-200">
+        <span class="text-2xl">💰</span>
+        <div>
+          <p class="text-xs text-amber-600 font-medium">Số dư</p>
+          <p class="text-xl font-bold text-amber-700">{{ currentUser?.coins ?? 0 }} coins</p>
+        </div>
+      </Card>
     </div>
-  </AppLayout>
+
+    <!-- Rewards List -->
+    <section>
+      <RewardsList />
+    </section>
+
+    <!-- My Redemptions -->
+    <section>
+      <MyRedemptions />
+    </section>
+  </div>
 </template>

@@ -9,6 +9,7 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const isHomePage = computed(() => route.path === '/')
+const currentUser = computed(() => userStore.currentUser)
 
 const handleSwitchRole = (role: 'employee' | 'manager') => {
   userStore.switchRole(role)
@@ -19,10 +20,13 @@ const handleSwitchRole = (role: 'employee' | 'manager') => {
 <template>
   <RouterView v-if="isHomePage" />
   <AppLayout
-    v-else
-    :user="userStore.currentUser!"
+    v-else-if="currentUser"
+    :user="currentUser"
     @switch-role="handleSwitchRole"
   >
     <RouterView />
   </AppLayout>
+  <div v-else class="min-h-screen flex items-center justify-center">
+    <p class="text-gray-500">Loading...</p>
+  </div>
 </template>
