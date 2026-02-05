@@ -14,27 +14,29 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 right-0 z-40 bg-base-100 border-b border-base-300 shadow-sm h-16">
+  <header class="fixed top-0 left-0 right-0 z-40 glass-dark h-16">
     <div class="max-w-5xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
-      <router-link to="/" class="flex items-center gap-2 text-lg sm:text-xl font-bold text-base-content">
+      <router-link to="/" class="flex items-center gap-2 text-xl font-bold">
         <span>🎰</span>
-        <span>OfficeVegas</span>
+        <span class="text-gradient">OfficeVegas</span>
       </router-link>
 
-      <div class="flex items-center gap-2 sm:gap-4">
+      <div class="flex items-center gap-3 sm:gap-6">
         <CoinDisplay :amount="user.coins" size="md" />
 
         <div class="flex items-center gap-2 sm:gap-3">
           <div class="text-right hidden sm:block">
-            <div class="text-sm font-medium text-base-content">{{ user.nickname }}</div>
-            <div class="text-xs text-base-content/60 capitalize">{{ user.role }}</div>
+            <div class="text-sm font-medium text-white">{{ user.nickname }}</div>
+            <div class="text-xs text-purple-300/70 capitalize">{{ user.role }}</div>
           </div>
 
-          <div class="join">
+          <div class="flex gap-1 glass rounded-lg p-1">
             <button
               :class="[
-                'join-item btn btn-xs sm:btn-sm',
-                user.role === 'employee' ? 'btn-primary' : 'btn-ghost'
+                'px-3 py-1 text-sm font-medium rounded-md transition-all duration-200',
+                user.role === 'employee'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                  : 'text-purple-200 hover:text-white hover:bg-white/10'
               ]"
               @click="emit('switch-role', 'employee')"
             >
@@ -42,8 +44,10 @@ const emit = defineEmits<{
             </button>
             <button
               :class="[
-                'join-item btn btn-xs sm:btn-sm',
-                user.role === 'manager' ? 'btn-primary' : 'btn-ghost'
+                'px-3 py-1 text-sm font-medium rounded-md transition-all duration-200',
+                user.role === 'manager'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                  : 'text-purple-200 hover:text-white hover:bg-white/10'
               ]"
               @click="emit('switch-role', 'manager')"
             >
