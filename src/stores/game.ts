@@ -200,6 +200,7 @@ export const useGameStore = defineStore('game', () => {
 
       // Add coins to user
       await userStore.addCoins(task.userId, reward)
+      userStore.addMonthlyEarnings(task.userId, reward)
 
       // Create transaction
       const { data: txData, error: txError } = await supabase
@@ -372,6 +373,7 @@ export const useGameStore = defineStore('game', () => {
         if (!user || bonus <= 0) continue
 
         await userStore.addCoins(user.id, bonus)
+        userStore.addMonthlyEarnings(user.id, bonus)
 
         // Add transaction
         await supabase.from('transactions').insert({

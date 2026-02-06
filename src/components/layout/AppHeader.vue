@@ -85,7 +85,7 @@ onUnmounted(() => {
 
           <div
             v-if="showThemeDropdown"
-            class="absolute right-0 top-full mt-2 py-2 w-40 card shadow-xl z-50"
+            class="absolute right-0 top-full mt-2 py-2 w-40 rounded-xl shadow-xl z-50 bg-elevated border border-theme"
           >
             <button
               v-for="theme in themes"

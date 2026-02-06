@@ -1,15 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { LotteryBet, Transaction } from '@/types'
+import type { LotteryBet } from '@/types'
+import { supabase } from '@/lib/supabase'
 import { useUserStore } from './user'
 import { useGameStore } from './game'
 
 export const useLotteryStore = defineStore('lottery', () => {
   const userStore = useUserStore()
   const gameStore = useGameStore()
-
-  // Helper to generate IDs
-  const generateId = () => Math.random().toString(36).substring(2, 9)
 
   // State
   const isPlaying = ref(false)
@@ -30,7 +28,7 @@ export const useLotteryStore = defineStore('lottery', () => {
   }
 
   // Actions
-  const placeBet = (userId: string, low: number, high: number, betAmount: number) => {
+  const placeBet = async (userId: string, low: number, high: number, betAmount: number) => {
     const user = userStore.users.find(u => u.id === userId)
     if (!user || user.coins < betAmount) {
       return { success: false, message: 'Không đủ coins' }
@@ -39,7 +37,7 @@ export const useLotteryStore = defineStore('lottery', () => {
     isPlaying.value = true
 
     // Step 1: Deduct stake FIRST
-    userStore.addCoins(userId, -betAmount)
+    await userStore.addCoins(userId, -betAmount)
 
     // Step 2: Generate random number 1-1000
     const result = Math.floor(Math.random() * 1000) + 1
@@ -54,25 +52,28 @@ export const useLotteryStore = defineStore('lottery', () => {
     // Step 4: If win, add payout
     if (won) {
       payout = Math.floor(betAmount * multiplier)
-      userStore.addCoins(userId, payout)
+      await userStore.addCoins(userId, payout)
       netGain = payout - betAmount
+      // Track monthly earnings (only the net gain, not stake)
+      userStore.addMonthlyEarnings(userId, netGain)
     }
 
-    // Add transaction
-    const transaction: Transaction = {
-      id: generateId(),
-      userId,
+    // Save transaction to Supabase
+    const txType = won ? 'lottery_win' : 'lottery_lose'
+    const txDescription = won
+      ? `Lottery win! Range ${low}-${high}, number ${result}, +${netGain} coins`
+      : `Lottery lose. Range ${low}-${high}, number ${result}, -${betAmount} coins`
+
+    await supabase.from('transactions').insert({
+      user_id: userId,
+      game_id: gameStore.currentGame?.id ?? null,
       amount: netGain,
-      type: won ? 'lottery_win' : 'lottery_lose',
-      description: won
-        ? `Lottery win! Range ${low}-${high}, number ${result}, +${netGain} coins`
-        : `Lottery lose. Range ${low}-${high}, number ${result}, -${betAmount} coins`,
-      timestamp: new Date(),
-    }
-    gameStore.transactions.unshift(transaction)
+      type: txType,
+      description: txDescription,
+    })
 
     // Update game coins
-    gameStore.updateGameCoins()
+    await gameStore.updateGameCoins()
 
     // Add to history
     const bet: LotteryBet = {

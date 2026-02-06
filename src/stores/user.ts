@@ -9,13 +9,22 @@ export const useUserStore = defineStore('user', () => {
   const currentUser = ref<DbUser | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
+  const monthlyEarnings = ref<Map<string, number>>(new Map())
 
   // Getters
   const employees = computed(() => users.value.filter((u) => u.role === 'employee'))
 
   const managers = computed(() => users.value.filter((u) => u.role === 'manager'))
 
-  const leaderboard = computed(() => [...employees.value].sort((a, b) => b.coins - a.coins))
+  // Leaderboard sorted by monthly earnings (not current coins)
+  const leaderboard = computed(() => {
+    return [...employees.value]
+      .map((emp) => ({
+        ...emp,
+        monthlyCoins: monthlyEarnings.value.get(emp.id) ?? 0,
+      }))
+      .sort((a, b) => b.monthlyCoins - a.monthlyCoins)
+  })
 
   const isManager = computed(() => currentUser.value?.role === 'manager')
 
@@ -142,7 +151,45 @@ export const useUserStore = defineStore('user', () => {
   const clearState = () => {
     currentUser.value = null
     users.value = []
+    monthlyEarnings.value = new Map()
     error.value = null
+  }
+
+  // Add to monthly earnings (when a new positive transaction happens)
+  const addMonthlyEarnings = (userId: string, amount: number) => {
+    if (amount > 0) {
+      const current = monthlyEarnings.value.get(userId) ?? 0
+      monthlyEarnings.value.set(userId, current + amount)
+    }
+  }
+
+  // Fetch monthly earnings for all users (current month)
+  const fetchMonthlyEarnings = async () => {
+    try {
+      // Get first day of current month
+      const now = new Date()
+      const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
+
+      // Fetch positive transactions (earnings) for current month
+      const { data, error: fetchError } = await supabase
+        .from('transactions')
+        .select('user_id, amount')
+        .gte('created_at', firstDayOfMonth)
+        .gt('amount', 0) // Only positive amounts (earnings)
+
+      if (fetchError) throw fetchError
+
+      // Sum earnings by user
+      const earnings = new Map<string, number>()
+      for (const tx of data ?? []) {
+        const current = earnings.get(tx.user_id) ?? 0
+        earnings.set(tx.user_id, current + tx.amount)
+      }
+
+      monthlyEarnings.value = earnings
+    } catch (e) {
+      console.error('fetchMonthlyEarnings error:', e)
+    }
   }
 
   // Get user by ID
@@ -156,6 +203,7 @@ export const useUserStore = defineStore('user', () => {
     currentUser,
     loading,
     error,
+    monthlyEarnings,
     // Getters
     employees,
     managers,
@@ -170,5 +218,7 @@ export const useUserStore = defineStore('user', () => {
     updateProfile,
     clearState,
     getUserById,
+    fetchMonthlyEarnings,
+    addMonthlyEarnings,
   }
 })

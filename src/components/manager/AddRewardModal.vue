@@ -142,9 +142,14 @@ const handleClose = () => {
         <label class="block text-sm font-medium text-base mb-1">Danh mục</label>
         <select
           v-model="form.category"
-          class="w-full px-3 py-2 border border-theme rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          class="w-full px-3 py-2 border border-theme rounded-lg bg-elevated text-base focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         >
-          <option v-for="cat in categories" :key="cat.value" :value="cat.value">
+          <option
+            v-for="cat in categories"
+            :key="cat.value"
+            :value="cat.value"
+            class="bg-elevated text-base"
+          >
             {{ cat.label }}
           </option>
         </select>
