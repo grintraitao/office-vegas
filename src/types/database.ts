@@ -6,6 +6,8 @@ export interface Database {
       users: {
         Row: {
           id: string
+          auth_id: string | null
+          email: string
           name: string
           nickname: string
           role: 'employee' | 'manager'
@@ -14,20 +16,25 @@ export interface Database {
         }
         Insert: {
           id?: string
+          auth_id?: string | null
+          email: string
           name: string
           nickname: string
-          role: 'employee' | 'manager'
+          role?: 'employee' | 'manager'
           coins?: number
           created_at?: string
         }
         Update: {
           id?: string
+          auth_id?: string | null
+          email?: string
           name?: string
           nickname?: string
           role?: 'employee' | 'manager'
           coins?: number
           created_at?: string
         }
+        Relationships: []
       }
       games: {
         Row: {
@@ -78,12 +85,13 @@ export interface Database {
           status?: 'active' | 'ended'
           created_at?: string
         }
+        Relationships: []
       }
       tasks: {
         Row: {
           id: string
           user_id: string
-          user_name: string
+          game_id: string | null
           title: string
           outcome: string
           status: 'pending' | 'approved' | 'rejected'
@@ -94,7 +102,7 @@ export interface Database {
         Insert: {
           id?: string
           user_id: string
-          user_name: string
+          game_id?: string | null
           title: string
           outcome: string
           status?: 'pending' | 'approved' | 'rejected'
@@ -105,7 +113,7 @@ export interface Database {
         Update: {
           id?: string
           user_id?: string
-          user_name?: string
+          game_id?: string | null
           title?: string
           outcome?: string
           status?: 'pending' | 'approved' | 'rejected'
@@ -113,32 +121,37 @@ export interface Database {
           created_at?: string
           reviewed_at?: string | null
         }
+        Relationships: []
       }
       transactions: {
         Row: {
           id: string
           user_id: string
+          game_id: string | null
           amount: number
-          type: 'task_reward' | 'lottery_win' | 'lottery_lose' | 'redemption'
+          type: 'task_reward' | 'lottery_win' | 'lottery_lose' | 'redemption' | 'bonus'
           description: string
-          timestamp: string
+          created_at: string
         }
         Insert: {
           id?: string
           user_id: string
+          game_id?: string | null
           amount: number
-          type: 'task_reward' | 'lottery_win' | 'lottery_lose' | 'redemption'
+          type: 'task_reward' | 'lottery_win' | 'lottery_lose' | 'redemption' | 'bonus'
           description: string
-          timestamp?: string
+          created_at?: string
         }
         Update: {
           id?: string
           user_id?: string
+          game_id?: string | null
           amount?: number
-          type?: 'task_reward' | 'lottery_win' | 'lottery_lose' | 'redemption'
+          type?: 'task_reward' | 'lottery_win' | 'lottery_lose' | 'redemption' | 'bonus'
           description?: string
-          timestamp?: string
+          created_at?: string
         }
+        Relationships: []
       }
       rewards: {
         Row: {
@@ -177,29 +190,31 @@ export interface Database {
           created_by?: string
           created_at?: string
         }
+        Relationships: []
       }
       redemptions: {
         Row: {
           id: string
           reward_id: string
           user_id: string
-          redeemed_at: string
           status: 'pending' | 'fulfilled' | 'cancelled'
+          created_at: string
         }
         Insert: {
           id?: string
           reward_id: string
           user_id: string
-          redeemed_at?: string
           status?: 'pending' | 'fulfilled' | 'cancelled'
+          created_at?: string
         }
         Update: {
           id?: string
           reward_id?: string
           user_id?: string
-          redeemed_at?: string
           status?: 'pending' | 'fulfilled' | 'cancelled'
+          created_at?: string
         }
+        Relationships: []
       }
       leaderboard_history: {
         Row: {
@@ -208,7 +223,8 @@ export interface Database {
           user_id: string
           nickname: string
           coins: number
-          color: string
+          rank: number
+          created_at: string
         }
         Insert: {
           id?: string
@@ -216,7 +232,8 @@ export interface Database {
           user_id: string
           nickname: string
           coins: number
-          color?: string
+          rank?: number
+          created_at?: string
         }
         Update: {
           id?: string
@@ -224,17 +241,37 @@ export interface Database {
           user_id?: string
           nickname?: string
           coins?: number
-          color?: string
+          rank?: number
+          created_at?: string
         }
+        Relationships: []
       }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
     }
   }
 }
 
-// Helper types for easier usage
+// Helper types
 export type Tables<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T]['Row']
 export type InsertTables<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T]['Insert']
 export type UpdateTables<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T]['Update']
+
+// Convenient type aliases
+export type DbUser = Tables<'users'>
+export type DbGame = Tables<'games'>
+export type DbTask = Tables<'tasks'>
+export type DbTransaction = Tables<'transactions'>
+export type DbReward = Tables<'rewards'>
+export type DbRedemption = Tables<'redemptions'>
+export type DbLeaderboardHistory = Tables<'leaderboard_history'>
