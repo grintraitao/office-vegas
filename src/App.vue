@@ -8,7 +8,12 @@ const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 
-const isHomePage = computed(() => route.path === '/')
+// Pages that don't need layout
+const isAuthPage = computed(() =>
+  route.path === '/' ||
+  route.path === '/login' ||
+  route.path === '/register'
+)
 const currentUser = computed(() => userStore.currentUser)
 
 const handleSwitchRole = (role: 'employee' | 'manager') => {
@@ -18,7 +23,10 @@ const handleSwitchRole = (role: 'employee' | 'manager') => {
 </script>
 
 <template>
-  <RouterView v-if="isHomePage" />
+  <!-- Auth pages (home, login, register) - no layout needed -->
+  <RouterView v-if="isAuthPage" />
+
+  <!-- App pages with layout -->
   <AppLayout
     v-else-if="currentUser"
     :user="currentUser"
@@ -26,6 +34,8 @@ const handleSwitchRole = (role: 'employee' | 'manager') => {
   >
     <RouterView />
   </AppLayout>
+
+  <!-- Loading state for protected routes -->
   <div v-else class="min-h-screen flex items-center justify-center">
     <p class="text-muted">Loading...</p>
   </div>
