@@ -23,7 +23,7 @@ const form = ref({
   description: '',
   cost: 10,
   category: 'fun' as RewardCategory,
-  stock: null as number | null,
+  stock: undefined as number | undefined,
   hasStock: false,
 })
 
@@ -47,7 +47,7 @@ watch(
         description: props.editReward.description,
         cost: props.editReward.cost,
         category: props.editReward.category,
-        stock: props.editReward.stock,
+        stock: props.editReward.stock ?? undefined,
         hasStock: props.editReward.stock !== null,
       }
     } else if (open) {
@@ -63,7 +63,7 @@ const resetForm = () => {
     description: '',
     cost: 10,
     category: 'fun',
-    stock: null,
+    stock: undefined,
     hasStock: false,
   }
 }

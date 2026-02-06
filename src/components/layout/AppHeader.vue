@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { CoinDisplay } from '@/components/ui'
-import { useThemeStore, themes } from '@/stores'
+import { useThemeStore, useUserStore, themes } from '@/stores'
+import { signOut } from '@/lib/services/auth.service'
+import { resetStoresInitialized } from '@/router'
 import type { User } from '@/types'
 
 interface Props {
@@ -9,6 +12,9 @@ interface Props {
 }
 
 defineProps<Props>()
+
+const router = useRouter()
+const userStore = useUserStore()
 
 const emit = defineEmits<{
   'switch-role': [role: 'employee' | 'manager']
@@ -25,6 +31,17 @@ const toggleThemeDropdown = () => {
 const selectTheme = (themeName: typeof themeStore.currentTheme) => {
   themeStore.setTheme(themeName)
   showThemeDropdown.value = false
+}
+
+const handleLogout = async () => {
+  try {
+    await signOut()
+    userStore.clearState()
+    resetStoresInitialized()
+    router.push('/login')
+  } catch (e) {
+    console.error('Logout error:', e)
+  }
 }
 
 // Close dropdown when clicking outside
@@ -114,6 +131,17 @@ onUnmounted(() => {
               Manager
             </button>
           </div>
+
+          <!-- Logout button -->
+          <button
+            class="p-2 rounded-lg card hover:brightness-110 transition-all text-muted hover:text-base"
+            title="Đăng xuất"
+            @click="handleLogout"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>

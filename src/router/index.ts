@@ -1,6 +1,38 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/views/HomePage.vue'
 import * as authService from '@/lib/services/auth.service'
+import { useUserStore, useGameStore, useRewardStore, useLeaderboardStore } from '@/stores'
+
+// Track if stores have been initialized
+let storesInitialized = false
+
+// Initialize all stores
+async function initializeStores(profile: Awaited<ReturnType<typeof authService.getCurrentProfile>>) {
+  if (storesInitialized || !profile) return
+
+  const userStore = useUserStore()
+  const gameStore = useGameStore()
+  const rewardStore = useRewardStore()
+  const leaderboardStore = useLeaderboardStore()
+
+  // Set current user
+  userStore.setCurrentUser(profile)
+
+  // Fetch all data in parallel
+  await Promise.all([
+    userStore.fetchUsers(),
+    gameStore.fetchAll(),
+    rewardStore.fetchAll(),
+    leaderboardStore.fetchHistory(),
+  ])
+
+  storesInitialized = true
+}
+
+// Reset stores initialization flag on logout
+export function resetStoresInitialized() {
+  storesInitialized = false
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -83,7 +115,8 @@ router.beforeEach(async (to, _from, next) => {
     try {
       const profile = await authService.getCurrentProfile()
       if (profile) {
-        // Already logged in, redirect to dashboard
+        // Already logged in, initialize stores and redirect to dashboard
+        await initializeStores(profile)
         return next({ name: profile.role === 'manager' ? 'manager' : 'employee' })
       }
     } catch {
@@ -100,6 +133,9 @@ router.beforeEach(async (to, _from, next) => {
       if (!profile) {
         return next({ name: 'login', query: { redirect: to.fullPath } })
       }
+
+      // Initialize stores if not already done
+      await initializeStores(profile)
 
       // Check role if specified
       if (to.meta.role && profile.role !== to.meta.role) {

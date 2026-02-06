@@ -17,7 +17,8 @@ const isAuthPage = computed(() =>
 const currentUser = computed(() => userStore.currentUser)
 
 const handleSwitchRole = (role: 'employee' | 'manager') => {
-  userStore.switchRole(role)
+  // In real auth mode, users have fixed roles
+  // This function is kept for navigation purposes
   router.push(`/${role}`)
 }
 </script>
