@@ -7,10 +7,14 @@ const rewardStore = useRewardStore()
 
 const redemptions = computed(() => rewardStore.myRedemptions)
 
-const statusConfig: Record<string, { label: string; color: string }> = {
+const statusConfig = {
   pending: { label: 'Chờ xác nhận', color: 'bg-yellow-100 text-yellow-800' },
   fulfilled: { label: 'Đã nhận', color: 'bg-green-100 text-green-800' },
   cancelled: { label: 'Đã huỷ', color: 'bg-red-100 text-red-800' },
+} as const
+
+const getStatusConfig = (status: string) => {
+  return statusConfig[status as keyof typeof statusConfig] ?? statusConfig.pending
 }
 
 const formatDate = (date: Date) => {
@@ -49,10 +53,10 @@ const formatDate = (date: Date) => {
         <span
           :class="[
             'text-xs px-2 py-1 rounded-full',
-            statusConfig[redemption.status].color,
+            getStatusConfig(redemption.status).color,
           ]"
         >
-          {{ statusConfig[redemption.status].label }}
+          {{ getStatusConfig(redemption.status).label }}
         </span>
       </Card>
     </div>

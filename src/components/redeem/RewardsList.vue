@@ -39,10 +39,10 @@ const handleRedeemClick = (reward: Reward) => {
   showConfirmModal.value = true
 }
 
-const confirmRedeem = () => {
+const confirmRedeem = async () => {
   if (!selectedReward.value) return
 
-  const result = rewardStore.redeemReward(selectedReward.value.id)
+  const result = await rewardStore.redeemReward(selectedReward.value.id)
   if (result) {
     redeemSuccess.value = true
   }
