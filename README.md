@@ -2,6 +2,10 @@
 
 Team gamification app - Biến công việc thành game!
 
+> *"Việc ngày mai, chớ để hôm nay..."* - Một nô lệ văn phòng nào đó
+
+🔗 **Live Demo**: [office-vegas.vercel.app](https://office-vegas.vercel.app)
+
 ## Features
 
 ### Employee
@@ -20,10 +24,10 @@ Team gamification app - Biến công việc thành game!
 - Xem thống kê team contributions
 
 ### Gamification
-- **Lottery System**: Dual slider để chọn LOW/HIGH range với odds tự động
-- **Rewards Shop**: Đổi coins lấy real rewards
-- **Monthly Leaderboard**: Chart lịch sử với ranking
-- **Team Progress**: Progress bar hướng tới mục tiêu chung
+- **Lottery System**: Dual slider để chọn LOW/HIGH range với odds tự động (house edge 5%)
+- **Rewards Shop**: Đổi coins lấy real rewards (coffee, pizza, ngày nghỉ...)
+- **Monthly Leaderboard**: Xếp hạng theo **tổng coins kiếm được trong tháng** (không phải current balance - spend hết coins vẫn giữ rank!)
+- **Team Progress**: Progress bar hướng tới mục tiêu chung của team
 - **Sprint Bonuses**: Bonus coins cho Top 1/2/3 cuối mỗi sprint
 
 ### Theme System
@@ -39,17 +43,35 @@ Theme selector nằm ở header, setting được lưu vào localStorage.
 ## Tech Stack
 
 - **Frontend**: Vue 3 + TypeScript (Composition API)
+- **Backend**: Supabase (PostgreSQL + Auth + Realtime)
 - **Styling**: Tailwind CSS v4 + CSS Variables theming
 - **State**: Pinia (stores for user, game, lottery, leaderboard, reward, theme)
-- **Routing**: Vue Router
+- **Routing**: Vue Router with navigation guards
 - **Build**: Vite
+- **Deploy**: Vercel
 
 ## Setup
 
-```bash
-# Install dependencies
-npm install
+### 1. Clone và install
 
+```bash
+git clone https://github.com/grintraitao/office-vegas.git
+cd office-vegas
+npm install
+```
+
+### 2. Environment Variables
+
+Tạo file `.env` với nội dung:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### 3. Run
+
+```bash
 # Start development server
 npm run dev
 
@@ -65,13 +87,24 @@ npm run lint
 
 ## Demo Accounts
 
-| Name | Nickname             | Role     | Coins |
-|------|----------------------|----------|-------|
-| Quoc | Tieu Nhan            | Employee | 150   |
-| Tin  | Thay Tin             | Employee | 280   |
-| Long | Vietlish Expert      | Employee | 95    |
-| Tung | Tung Tung Tung Sahur | Employee | 120   |
-| Hieu | Hieu thu 3           | Manager  | 0     |
+Đăng ký tài khoản mới hoặc liên hệ admin để được cấp.
+
+| Role     | Permissions                                      |
+|----------|--------------------------------------------------|
+| Employee | Submit tasks, play lottery, redeem rewards       |
+| Manager  | Approve tasks, manage rewards, view team stats   |
+
+## Database Schema (Supabase)
+
+```
+users           - User profiles (id, email, nickname, role, coins)
+games           - Sprint/game sessions with targets and bonuses
+tasks           - Task submissions (pending/approved/rejected)
+transactions    - Coin history (task_reward, lottery_win, lottery_lose, redemption, bonus)
+rewards         - Reward catalog with stock tracking
+redemptions     - Reward redemption requests
+leaderboard_history - Monthly snapshots for charts
+```
 
 ## Project Structure
 

@@ -19,10 +19,15 @@ const getRankEmoji = (rank: number) => {
 }
 
 const getRankClass = (rank: number) => {
-  if (rank === 1) return 'bg-yellow-500/10 border-yellow-500/30'
-  if (rank === 2) return 'bg-surface border-theme-light'
-  if (rank === 3) return 'bg-orange-500/10 border-orange-500/30'
-  return 'bg-surface border-theme-light'
+  // 5 colors that work well with all themes (light/dark/vegas/cyberpunk/luxury)
+  const rankColors: Record<number, string> = {
+    1: 'bg-yellow-500/15 border-yellow-500/40',   // 🥇 Gold
+    2: 'bg-slate-400/15 border-slate-400/40',     // 🥈 Silver
+    3: 'bg-orange-500/15 border-orange-500/40',   // 🥉 Bronze
+    4: 'bg-blue-500/15 border-blue-500/40',       // 4th - Blue
+    5: 'bg-purple-500/15 border-purple-500/40',   // 5th - Purple
+  }
+  return rankColors[rank] || 'bg-surface border-theme-light'
 }
 </script>
 
@@ -53,7 +58,7 @@ const getRankClass = (rank: number) => {
               <span v-if="user.id === currentUser?.id" class="text-xs text-indigo-600 ml-2">(Bạn)</span>
             </div>
           </div>
-          <CoinDisplay :amount="user.coins" size="sm" />
+          <CoinDisplay :amount="user.monthlyCoins" size="sm" />
         </div>
       </div>
     </Card>

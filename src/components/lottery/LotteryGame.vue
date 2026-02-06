@@ -114,7 +114,7 @@ const spin = async () => {
   // Dramatic delay
   await new Promise(resolve => setTimeout(resolve, 1500))
 
-  const spinResult = lotteryStore.placeBet(
+  const spinResult = await lotteryStore.placeBet(
     currentUser.value.id,
     lowRange.value,
     highRange.value,

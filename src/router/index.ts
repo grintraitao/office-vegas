@@ -21,6 +21,7 @@ async function initializeStores(profile: Awaited<ReturnType<typeof authService.g
   // Fetch all data in parallel
   await Promise.all([
     userStore.fetchUsers(),
+    userStore.fetchMonthlyEarnings(),
     gameStore.fetchAll(),
     rewardStore.fetchAll(),
     leaderboardStore.fetchHistory(),
@@ -110,6 +111,23 @@ const router = createRouter({
 
 // Navigation guard
 router.beforeEach(async (to, _from, next) => {
+  // Handle home route - redirect based on auth status
+  if (to.path === '/') {
+    try {
+      const profile = await authService.getCurrentProfile()
+      if (profile) {
+        // Logged in - go to dashboard based on role
+        await initializeStores(profile)
+        return next({ name: profile.role === 'manager' ? 'manager' : 'employee' })
+      } else {
+        // Not logged in - go to login
+        return next({ name: 'login' })
+      }
+    } catch {
+      return next({ name: 'login' })
+    }
+  }
+
   // Skip auth check for guest routes
   if (to.meta.guest) {
     try {
